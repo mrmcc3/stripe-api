@@ -1,0 +1,1668 @@
+{:ops
+ {:GetCustomersCustomerCards
+  {:method "get",
+   :path "/v1/customers/{customer}/cards",
+   :description
+   "You can see a list of the cards belonging to a customer.\nNote that the 10 most recent sources are always available on the Customer object.\nIf you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional cards.",
+   :deprecated true},
+  :GetAccountPersons
+  {:method "get",
+   :path "/v1/account/persons",
+   :description
+   "Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first."},
+  :PostPaymentMethodsPaymentMethod
+  {:method "post",
+   :path "/v1/payment_methods/{payment_method}",
+   :description
+   "Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated."},
+  :DeleteSkusId
+  {:method "delete",
+   :path "/v1/skus/{id}",
+   :description
+   "Delete a SKU. Deleting a SKU is only possible until it has been used in an order."},
+  :GetTerminalReaders
+  {:method "get",
+   :path "/v1/terminal/readers",
+   :description "Returns a list of Reader objects."},
+  :DeleteSubscriptionsSubscriptionExposedIdDiscount
+  {:method "delete",
+   :path "/v1/subscriptions/{subscription_exposed_id}/discount",
+   :description
+   "Removes the currently applied discount on a subscription."},
+  :GetBitcoinTransactions
+  {:method "get",
+   :path "/v1/bitcoin/transactions",
+   :description "List bitcoin transacitons for a given receiver.",
+   :deprecated true},
+  :PostChargesChargeDisputeClose
+  {:method "post",
+   :path "/v1/charges/{charge}/dispute/close",
+   :description ""},
+  :PostPayouts
+  {:method "post",
+   :path "/v1/payouts",
+   :description
+   "To send funds to your own bank account, you create a new payout object. Your Stripe balance must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.\n\nIf your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.\n\nIf you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The balance object details available and pending amounts by source type."},
+  :PostTransfersIdReversals
+  {:method "post",
+   :path "/v1/transfers/{id}/reversals",
+   :description
+   "When you create a new reversal, you must specify a transfer to create it on.\n\nWhen reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.\n\nOnce entirely reversed, a transfer can’t be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer."},
+  :PostReportingReportRuns
+  {:method "post",
+   :path "/v1/reporting/report_runs",
+   :description
+   "Creates a new object and begin running the report. (Requires a live-mode API key.)"},
+  :GetAccount
+  {:method "get",
+   :path "/v1/account",
+   :description "Retrieves the details of an account."},
+  :PostTopups
+  {:method "post",
+   :path "/v1/topups",
+   :description "Top up the balance of an account"},
+  :PostCouponsCoupon
+  {:method "post",
+   :path "/v1/coupons/{coupon}",
+   :description
+   "Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable."},
+  :GetOrderReturnsId
+  {:method "get",
+   :path "/v1/order_returns/{id}",
+   :description
+   "Retrieves the details of an existing order return. Supply the unique order ID from either an order return creation request or the order return list, and Stripe will return the corresponding order information."},
+  :PostCustomersCustomer
+  {:method "post",
+   :path "/v1/customers/{customer}",
+   :description
+   "Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer’s active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer’s current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.\n\nThis request accepts mostly the same arguments as the customer creation call."},
+  :PostSetupIntents
+  {:method "post",
+   :path "/v1/setup_intents",
+   :description
+   "Creates a SetupIntent object.\n\nAfter the SetupIntent is created, attach a payment method and confirm\nto collect any required permissions to charge the payment method later."},
+  :GetIssuingTransactions
+  {:method "get",
+   :path "/v1/issuing/transactions",
+   :description
+   "Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :PostCustomersCustomerTaxIds
+  {:method "post",
+   :path "/v1/customers/{customer}/tax_ids",
+   :description "Creates a new TaxID object for a customer."},
+  :GetAccountsAccount
+  {:method "get",
+   :path "/v1/accounts/{account}",
+   :description "Retrieves the details of an account."},
+  :PostTopupsTopupCancel
+  {:method "post",
+   :path "/v1/topups/{topup}/cancel",
+   :description
+   "Cancels a top-up. Only pending top-ups can be canceled."},
+  :DeleteWebhookEndpointsWebhookEndpoint
+  {:method "delete",
+   :path "/v1/webhook_endpoints/{webhook_endpoint}",
+   :description
+   "You can also delete webhook endpoints via the webhook endpoint management page of the Stripe dashboard."},
+  :GetCustomersCustomerSourcesId
+  {:method "get",
+   :path "/v1/customers/{customer}/sources/{id}",
+   :description "Retrieve a specified source for a given customer."},
+  :DeleteApplePayDomainsDomain
+  {:method "delete",
+   :path "/v1/apple_pay/domains/{domain}",
+   :description "Delete an apple pay domain."},
+  :GetPaymentIntentsIntent
+  {:method "get",
+   :path "/v1/payment_intents/{intent}",
+   :description
+   "Retrieves the details of a PaymentIntent that has previously been created. \n\nClient-side retrieval using a publishable key is allowed when the client_secret is provided in the query string. \n\nWhen retrieved with a publishable key, only a subset of properties will be returned. Please refer to the payment intent object reference for more details."},
+  :GetRefunds
+  {:method "get",
+   :path "/v1/refunds",
+   :description
+   "Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object."},
+  :PostIssuingCardholdersCardholder
+  {:method "post",
+   :path "/v1/issuing/cardholders/{cardholder}",
+   :description
+   "Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :PostPayoutsPayout
+  {:method "post",
+   :path "/v1/payouts/{payout}",
+   :description
+   "Updates the specified payout by setting the values of the parameters passed. Any parameters not provided will be left unchanged. This request accepts only the metadata as arguments."},
+  :PostReviewsReviewApprove
+  {:method "post",
+   :path "/v1/reviews/{review}/approve",
+   :description
+   "Approves a Review object, closing it and removing it from the list of reviews."},
+  :PostCustomersCustomerBankAccounts
+  {:method "post",
+   :path "/v1/customers/{customer}/bank_accounts",
+   :description
+   "When you create a new credit card, you must specify a customer or recipient on which to create it.\n\nIf the card’s owner has no default card, then the new card will become the default.\nHowever, if the owner already has a default, then it will not change.\nTo change the default, you should update the customer to have a new default_source."},
+  :GetTransfersTransferReversalsId
+  {:method "get",
+   :path "/v1/transfers/{transfer}/reversals/{id}",
+   :description
+   "By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer."},
+  :GetIssuerFraudRecordsIssuerFraudRecord
+  {:method "get",
+   :path "/v1/issuer_fraud_records/{issuer_fraud_record}",
+   :description
+   "Retrieves the details of an issuer fraud record that has previously been created. \n\nPlease refer to the issuer fraud record object reference for more details.",
+   :deprecated true},
+  :PostProducts
+  {:method "post",
+   :path "/v1/products",
+   :description
+   "Creates a new product object. To create a product for use with orders, see Products."},
+  :GetExchangeRates
+  {:method "get",
+   :path "/v1/exchange_rates",
+   :description
+   "Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports."},
+  :GetAccountsAccountPeople
+  {:method "get",
+   :path "/v1/accounts/{account}/people",
+   :description
+   "Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first."},
+  :PostCustomersCustomerSources
+  {:method "post",
+   :path "/v1/customers/{customer}/sources",
+   :description
+   "When you create a new credit card, you must specify a customer or recipient on which to create it.\n\nIf the card’s owner has no default card, then the new card will become the default.\nHowever, if the owner already has a default, then it will not change.\nTo change the default, you should update the customer to have a new default_source."},
+  :PostSubscriptionSchedulesSchedule
+  {:method "post",
+   :path "/v1/subscription_schedules/{schedule}",
+   :description "Updates an existing subscription schedule."},
+  :PostSetupIntentsIntentConfirm
+  {:method "post",
+   :path "/v1/setup_intents/{intent}/confirm",
+   :description
+   "Confirm that your customer intends to set up the current or\nprovided payment method. For example, you would confirm a SetupIntent\nwhen a customer hits the “Save” button on a payment method management\npage on your website.\n\nIf the selected payment method does not require any additional\nsteps from the customer, the SetupIntent will transition to the\nsucceeded status.\n\nOtherwise, it will transition to the requires_action status and\nsuggest additional actions via next_action. If setup fails,\nthe SetupIntent will transition to the\nrequires_payment_method status."},
+  :PostIssuingCardsCardPin
+  {:method "post",
+   :path "/v1/issuing/cards/{card}/pin",
+   :description
+   "Updates the PIN for a card, subject to cardholder verification. See Retrieve and update cardholder PIN"},
+  :PostAccountBankAccounts
+  {:method "post",
+   :path "/v1/account/bank_accounts",
+   :description "Create an external account for a given account."},
+  :DeleteAccountBankAccountsId
+  {:method "delete",
+   :path "/v1/account/bank_accounts/{id}",
+   :description
+   "Delete a specified external account for a given account."},
+  :PostEphemeralKeys
+  {:method "post",
+   :path "/v1/ephemeral_keys",
+   :description "Creates a short-lived API key for a given resource."},
+  :PutAccountsAccountLogout
+  {:method "put",
+   :path "/v1/accounts/{account}/logout",
+   :description
+   "Invalidates all sessions for a light account, for a platform to use during platform logout.\n\nYou may only log out Express accounts connected to your platform."},
+  :GetBitcoinReceiversId
+  {:method "get",
+   :path "/v1/bitcoin/receivers/{id}",
+   :description "Retrieves the Bitcoin receiver with the given ID.",
+   :deprecated true},
+  :DeletePlansPlan
+  {:method "delete",
+   :path "/v1/plans/{plan}",
+   :description
+   "Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected."},
+  :DeleteAccountsAccountBankAccountsId
+  {:method "delete",
+   :path "/v1/accounts/{account}/bank_accounts/{id}",
+   :description
+   "Delete a specified external account for a given account."},
+  :PostAccount
+  {:method "post",
+   :path "/v1/account",
+   :description
+   "Updates a connected Express or Custom account by setting the values of the parameters passed. Any parameters not provided are left unchanged. Most parameters can be changed only for Custom accounts. (These are marked Custom Only below.) Parameters marked Custom and Express are supported by both account types.\n\nTo update your own account, use the Dashboard. Refer to our Connect documentation to learn more about updating accounts."},
+  :PostPaymentIntentsIntentConfirm
+  {:method "post",
+   :path "/v1/payment_intents/{intent}/confirm",
+   :description
+   "Confirm that your customer intends to pay with current or provided\npayment method. Upon confirmation, the PaymentIntent will attempt to initiate\na payment.\n\nIf the selected payment method requires additional authentication steps, the\nPaymentIntent will transition to the requires_action status and\nsuggest additional actions via next_action. If payment fails,\nthe PaymentIntent will transition to the requires_payment_method status. If\npayment succeeds, the PaymentIntent will transition to the succeeded\nstatus (or requires_capture, if capture_method is set to manual).\n\nIf the confirmation_method is automatic, payment may be attempted\nusing our client SDKs\nand the PaymentIntent’s client_secret.\nAfter next_actions are handled by the client, no additional\nconfirmation is required to complete the payment.\n\nIf the confirmation_method is manual, all payment attempts must be\ninitiated using a secret key.\nIf any actions are required for the payment, the PaymentIntent will\nreturn to the requires_confirmation state\nafter those actions are completed. Your server needs to then\nexplicitly re-confirm the PaymentIntent to initiate the next payment\nattempt. Read the expanded documentation\nto learn more about manual confirmation."},
+  :GetApplePayDomainsDomain
+  {:method "get",
+   :path "/v1/apple_pay/domains/{domain}",
+   :description "Retrieve an apple pay domain."},
+  :GetCountrySpecsCountry
+  {:method "get",
+   :path "/v1/country_specs/{country}",
+   :description "Returns a Country Spec for a given Country code."},
+  :GetApplicationFeesFeeRefundsId
+  {:method "get",
+   :path "/v1/application_fees/{fee}/refunds/{id}",
+   :description
+   "By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee."},
+  :GetSigmaScheduledQueryRuns
+  {:method "get",
+   :path "/v1/sigma/scheduled_query_runs",
+   :description "Returns a list of scheduled query runs."},
+  :GetTransfersTransfer
+  {:method "get",
+   :path "/v1/transfers/{transfer}",
+   :description
+   "Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information."},
+  :DeleteAccountPersonsPerson
+  {:method "delete",
+   :path "/v1/account/persons/{person}",
+   :description
+   "Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file."},
+  :PostAccountExternalAccountsId
+  {:method "post",
+   :path "/v1/account/external_accounts/{id}",
+   :description
+   "Updates the metadata, account holder name, and account holder type of a bank account belonging to a Custom account, and optionally sets it as the default for its currency. Other bank account details are not editable by design.\nYou can re-enable a disabled bank account by performing an update call without providing any arguments or changes."},
+  :PostApplicationFeesIdRefunds
+  {:method "post",
+   :path "/v1/application_fees/{id}/refunds",
+   :description
+   "Refunds an application fee that has previously been collected but not yet refunded.\nFunds will be refunded to the Stripe account from which the fee was originally collected.\n\nYou can optionally refund only part of an application fee.\nYou can do so multiple times, until the entire fee has been refunded.\n\nOnce entirely refunded, an application fee can’t be refunded again.\nThis method will raise an error when called on an already-refunded application fee,\nor when trying to refund more money than is left on an application fee."},
+  :PostInvoicesInvoiceFinalize
+  {:method "post",
+   :path "/v1/invoices/{invoice}/finalize",
+   :description
+   "Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you’d like to finalize a draft invoice manually, you can do so using this method."},
+  :PostInvoices
+  {:method "post",
+   :path "/v1/invoices",
+   :description
+   "This endpoint creates a draft invoice for a given customer. The draft invoice created pulls in all pending invoice items on that customer, including prorations."},
+  :GetAccountsAccountExternalAccounts
+  {:method "get",
+   :path "/v1/accounts/{account}/external_accounts",
+   :description "List external accounts for an account."},
+  :GetDisputes
+  {:method "get",
+   :path "/v1/disputes",
+   :description "Returns a list of your disputes."},
+  :PostApplicationFeesIdRefund
+  {:method "post",
+   :path "/v1/application_fees/{id}/refund",
+   :description ""},
+  :PostSubscriptions
+  {:method "post",
+   :path "/v1/subscriptions",
+   :description
+   "Creates a new subscription on an existing customer. Each customer can have up to 25 active or scheduled subscriptions."},
+  :DeleteAccountsAccountPersonsPerson
+  {:method "delete",
+   :path "/v1/accounts/{account}/persons/{person}",
+   :description
+   "Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file."},
+  :PostSources
+  {:method "post",
+   :path "/v1/sources",
+   :description "Creates a new source object."},
+  :GetReviews
+  {:method "get",
+   :path "/v1/reviews",
+   :description
+   "Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :PostAccountsAccountPersons
+  {:method "post",
+   :path "/v1/accounts/{account}/persons",
+   :description "Creates a new person."},
+  :DeleteAccountsAccountExternalAccountsId
+  {:method "delete",
+   :path "/v1/accounts/{account}/external_accounts/{id}",
+   :description
+   "Delete a specified external account for a given account."},
+  :GetPaymentIntents
+  {:method "get",
+   :path "/v1/payment_intents",
+   :description "Returns a list of PaymentIntents."},
+  :PostChargesChargeRefunds
+  {:method "post",
+   :path "/v1/charges/{charge}/refunds",
+   :description "Create a refund."},
+  :PostAccountsAccountCapabilitiesCapability
+  {:method "post",
+   :path "/v1/accounts/{account}/capabilities/{capability}",
+   :description "Updates an existing Account Capability."},
+  :GetCountrySpecs
+  {:method "get",
+   :path "/v1/country_specs",
+   :description
+   "Lists all Country Spec objects available in the API."},
+  :GetAccountPeople
+  {:method "get",
+   :path "/v1/account/people",
+   :description
+   "Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first."},
+  :PostCustomersCustomerCards
+  {:method "post",
+   :path "/v1/customers/{customer}/cards",
+   :description
+   "When you create a new credit card, you must specify a customer or recipient on which to create it.\n\nIf the card’s owner has no default card, then the new card will become the default.\nHowever, if the owner already has a default, then it will not change.\nTo change the default, you should update the customer to have a new default_source."},
+  :GetCouponsCoupon
+  {:method "get",
+   :path "/v1/coupons/{coupon}",
+   :description "Retrieves the coupon with the given ID."},
+  :PostCreditNotesId
+  {:method "post",
+   :path "/v1/credit_notes/{id}",
+   :description "Updates an existing credit note."},
+  :GetAccountExternalAccounts
+  {:method "get",
+   :path "/v1/account/external_accounts",
+   :description "List external accounts for an account."},
+  :DeleteCustomersCustomerDiscount
+  {:method "delete",
+   :path "/v1/customers/{customer}/discount",
+   :description
+   "Removes the currently applied discount on a customer."},
+  :GetReportingReportRuns
+  {:method "get",
+   :path "/v1/reporting/report_runs",
+   :description
+   "Returns a list of Report Runs, with the most recent appearing first. (Requires a live-mode API key.)"},
+  :GetIssuingCards
+  {:method "get",
+   :path "/v1/issuing/cards",
+   :description
+   "Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :GetSubscriptionItemsSubscriptionItemUsageRecordSummaries
+  {:method "get",
+   :path
+   "/v1/subscription_items/{subscription_item}/usage_record_summaries",
+   :description
+   "For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that’s been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the billing plan’s month of September).\n\nThe list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn’t ended yet. Since new usage records can still be added, the returned summary information for the subscription item’s ID should be seen as unstable until the subscription billing period ends."},
+  :GetBalanceTransactionsId
+  {:method "get",
+   :path "/v1/balance_transactions/{id}",
+   :description
+   "Retrieves the balance transaction with the given ID.\n\nNote that this endpoint previously used the path /v1/balance/history/:id."},
+  :PostRefundsRefund
+  {:method "post",
+   :path "/v1/refunds/{refund}",
+   :description
+   "Updates the specified refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.\n\nThis request only accepts metadata as an argument."},
+  :GetCustomersCustomerBankAccounts
+  {:method "get",
+   :path "/v1/customers/{customer}/bank_accounts",
+   :description
+   "You can see a list of the bank accounts belonging to a Customer. Note that the 10 most recent sources are always available by default on the Customer. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional bank accounts.",
+   :deprecated true},
+  :PostFileLinksLink
+  {:method "post",
+   :path "/v1/file_links/{link}",
+   :description
+   "Updates an existing file link object. Expired links can no longer be updated."},
+  :GetBalanceHistory
+  {:method "get",
+   :path "/v1/balance/history",
+   :description
+   "Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.\n\nNote that this endpoint was previously called “Balance history” and used the path /v1/balance/history."},
+  :GetPayoutsPayout
+  {:method "get",
+   :path "/v1/payouts/{payout}",
+   :description
+   "Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list, and Stripe will return the corresponding payout information."},
+  :GetPaymentMethodsPaymentMethod
+  {:method "get",
+   :path "/v1/payment_methods/{payment_method}",
+   :description "Retrieves a PaymentMethod object."},
+  :PostDisputesDisputeClose
+  {:method "post",
+   :path "/v1/disputes/{dispute}/close",
+   :description
+   "Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.\n\nThe status of the dispute will change from needs_response to lost. Closing a dispute is irreversible."},
+  :GetSkusId
+  {:method "get",
+   :path "/v1/skus/{id}",
+   :description
+   "Retrieves the details of an existing SKU. Supply the unique SKU identifier from either a SKU creation request or from the product, and Stripe will return the corresponding SKU information."},
+  :GetCustomersCustomerCardsId
+  {:method "get",
+   :path "/v1/customers/{customer}/cards/{id}",
+   :description
+   "You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.",
+   :deprecated true},
+  :PostTerminalLocations
+  {:method "post",
+   :path "/v1/terminal/locations",
+   :description "Creates a new Location object."},
+  :GetApplicationFeesIdRefunds
+  {:method "get",
+   :path "/v1/application_fees/{id}/refunds",
+   :description
+   "You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds."},
+  :GetSubscriptionItemsItem
+  {:method "get",
+   :path "/v1/subscription_items/{item}",
+   :description "Retrieves the invoice item with the given ID."},
+  :GetRecipientsId
+  {:method "get",
+   :path "/v1/recipients/{id}",
+   :description
+   "Retrieves the details of an existing recipient. You need only supply the unique recipient identifier that was returned upon recipient creation.",
+   :deprecated true},
+  :PostRecipientsId
+  {:method "post",
+   :path "/v1/recipients/{id}",
+   :description
+   "Updates the specified recipient by setting the values of the parameters passed.\nAny parameters not provided will be left unchanged.\n\nIf you update the name or tax ID, the identity verification will automatically be rerun.\nIf you update the bank account, the bank account validation will automatically be rerun.",
+   :deprecated true},
+  :PostAccountsAccountBankAccounts
+  {:method "post",
+   :path "/v1/accounts/{account}/bank_accounts",
+   :description "Create an external account for a given account."},
+  :GetRadarEarlyFraudWarningsEarlyFraudWarning
+  {:method "get",
+   :path "/v1/radar/early_fraud_warnings/{early_fraud_warning}",
+   :description
+   "Retrieves the details of an early fraud warning that has previously been created. \n\nPlease refer to the early fraud warning object reference for more details."},
+  :GetApplicationFees
+  {:method "get",
+   :path "/v1/application_fees",
+   :description
+   "Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first."},
+  :DeleteAccountExternalAccountsId
+  {:method "delete",
+   :path "/v1/account/external_accounts/{id}",
+   :description
+   "Delete a specified external account for a given account."},
+  :PostAccountsAccountExternalAccountsId
+  {:method "post",
+   :path "/v1/accounts/{account}/external_accounts/{id}",
+   :description
+   "Updates the metadata, account holder name, and account holder type of a bank account belonging to a Custom account, and optionally sets it as the default for its currency. Other bank account details are not editable by design.\nYou can re-enable a disabled bank account by performing an update call without providing any arguments or changes."},
+  :PostPaymentMethodsPaymentMethodDetach
+  {:method "post",
+   :path "/v1/payment_methods/{payment_method}/detach",
+   :description "Detaches a PaymentMethod object from a Customer."},
+  :PostCustomersCustomerSourcesId
+  {:method "post",
+   :path "/v1/customers/{customer}/sources/{id}",
+   :description "Update a specified source for a given customer."},
+  :GetSetupIntents
+  {:method "get",
+   :path "/v1/setup_intents",
+   :description "Returns a list of SetupIntents."},
+  :GetAccountsAccountBankAccountsId
+  {:method "get",
+   :path "/v1/accounts/{account}/bank_accounts/{id}",
+   :description
+   "Retrieve a specified external account for a given account."},
+  :GetOrders
+  {:method "get",
+   :path "/v1/orders",
+   :description
+   "Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first."},
+  :PostInvoicesInvoicePay
+  {:method "post",
+   :path "/v1/invoices/{invoice}/pay",
+   :description
+   "Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your subscriptions settings. However, if you’d like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so."},
+  :PostAccountsAccountExternalAccounts
+  {:method "post",
+   :path "/v1/accounts/{account}/external_accounts",
+   :description "Create an external account for a given account."},
+  :DeleteRadarValueListsValueList
+  {:method "delete",
+   :path "/v1/radar/value_lists/{value_list}",
+   :description
+   "Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules."},
+  :GetCreditNotesPreviewLines
+  {:method "get",
+   :path "/v1/credit_notes/preview/lines",
+   :description
+   "When retrieving a credit note preview, you’ll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items."},
+  :PostIssuingVerifications
+  {:method "post",
+   :path "/v1/issuing/verifications",
+   :description
+   "Some actions (eg: updating a PIN) need confirmation from the cardholder"},
+  :PostAccountLinks
+  {:method "post",
+   :path "/v1/account_links",
+   :description
+   "Creates an AccountLink object that returns a single-use Stripe URL that the user can redirect their user to in order to take them through the Connect Onboarding flow."},
+  :Get3dSecureThreeDSecure
+  {:method "get",
+   :path "/v1/3d_secure/{three_d_secure}",
+   :description "Retrieves a 3D Secure object."},
+  :PostPaymentMethodsPaymentMethodAttach
+  {:method "post",
+   :path "/v1/payment_methods/{payment_method}/attach",
+   :description
+   "Attaches a PaymentMethod object to a Customer.\n\nTo use this PaymentMethod as the default for invoice or subscription payments,\nset invoice_settings.default_payment_method,\non the Customer to the PaymentMethod’s ID."},
+  :PostInvoicesInvoice
+  {:method "post",
+   :path "/v1/invoices/{invoice}",
+   :description
+   "Draft invoices are fully editable. Once an invoice is finalized,\nmonetary values, as well as collection_method, become uneditable.\n\nIf you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,\nsending reminders for, or automatically reconciling invoices, pass\nauto_advance=false."},
+  :GetIssuingCardholdersCardholder
+  {:method "get",
+   :path "/v1/issuing/cardholders/{cardholder}",
+   :description "Retrieves an Issuing Cardholder object."},
+  :GetInvoicesUpcomingLines
+  {:method "get",
+   :path "/v1/invoices/upcoming/lines",
+   :description
+   "When retrieving an upcoming invoice, you’ll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items."},
+  :PostOrders
+  {:method "post",
+   :path "/v1/orders",
+   :description "Creates a new order object."},
+  :GetWebhookEndpointsWebhookEndpoint
+  {:method "get",
+   :path "/v1/webhook_endpoints/{webhook_endpoint}",
+   :description "Retrieves the webhook endpoint with the given ID."},
+  :GetEvents
+  {:method "get",
+   :path "/v1/events",
+   :description
+   "List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in event object api_version attribute (not according to your current Stripe API version or Stripe-Version header)."},
+  :DeleteTerminalReadersReader
+  {:method "delete",
+   :path "/v1/terminal/readers/{reader}",
+   :description "Deletes a Reader object."},
+  :PostIssuingCards
+  {:method "post",
+   :path "/v1/issuing/cards",
+   :description "Creates an Issuing Card object."},
+  :PostCustomersCustomerBankAccountsIdVerify
+  {:method "post",
+   :path "/v1/customers/{customer}/bank_accounts/{id}/verify",
+   :description
+   "Verify a specified bank account for a given customer."},
+  :GetCustomersCustomerBalanceTransactionsTransaction
+  {:method "get",
+   :path "/v1/customers/{customer}/balance_transactions/{transaction}",
+   :description
+   "Retrieves a specific transaction that updated the customer’s balance."},
+  :GetInvoicesInvoice
+  {:method "get",
+   :path "/v1/invoices/{invoice}",
+   :description "Retrieves the invoice with the given ID."},
+  :DeleteAccountsAccountPeoplePerson
+  {:method "delete",
+   :path "/v1/accounts/{account}/people/{person}",
+   :description
+   "Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file."},
+  :GetChargesChargeRefunds
+  {:method "get",
+   :path "/v1/charges/{charge}/refunds",
+   :description
+   "You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds."},
+  :PostChargesChargeCapture
+  {:method "post",
+   :path "/v1/charges/{charge}/capture",
+   :description
+   "Capture the payment of an existing, uncaptured, charge. This is the second half of the two-step payment flow, where first you created a charge with the capture option set to false.\n\nUncaptured payments expire exactly seven days after they are created. If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable."},
+  :PostAccountPersons
+  {:method "post",
+   :path "/v1/account/persons",
+   :description "Creates a new person."},
+  :GetBalance
+  {:method "get",
+   :path "/v1/balance",
+   :description
+   "Retrieves the current account balance, based on the authentication that was used to make the request.\n For a sample request, see Accounting for negative balances."},
+  :DeleteCustomersCustomerTaxIdsId
+  {:method "delete",
+   :path "/v1/customers/{customer}/tax_ids/{id}",
+   :description "Deletes an existing TaxID object."},
+  :GetFiles
+  {:method "get",
+   :path "/v1/files",
+   :description
+   "Returns a list of the files that your account has access to. The files are returned sorted by creation date, with the most recently created files appearing first."},
+  :GetCustomersCustomerBankAccountsId
+  {:method "get",
+   :path "/v1/customers/{customer}/bank_accounts/{id}",
+   :description
+   "By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.",
+   :deprecated true},
+  :PostAccountsAccountPeople
+  {:method "post",
+   :path "/v1/accounts/{account}/people",
+   :description "Creates a new person."},
+  :PostCustomersCustomerBankAccountsId
+  {:method "post",
+   :path "/v1/customers/{customer}/bank_accounts/{id}",
+   :description "Update a specified source for a given customer."},
+  :GetBitcoinReceiversReceiverTransactions
+  {:method "get",
+   :path "/v1/bitcoin/receivers/{receiver}/transactions",
+   :description "List bitcoin transacitons for a given receiver.",
+   :deprecated true},
+  :GetReportingReportTypes
+  {:method "get",
+   :path "/v1/reporting/report_types",
+   :description
+   "Returns a full list of Report Types. (Requires a live-mode API key.)"},
+  :GetCoupons
+  {:method "get",
+   :path "/v1/coupons",
+   :description "Returns a list of your coupons."},
+  :PostIssuingDisputes
+  {:method "post",
+   :path "/v1/issuing/disputes",
+   :description "Creates an Issuing Dispute object."},
+  :GetCustomersCustomerDiscount
+  {:method "get",
+   :path "/v1/customers/{customer}/discount",
+   :description ""},
+  :GetAccountsAccountCapabilities
+  {:method "get",
+   :path "/v1/accounts/{account}/capabilities",
+   :description
+   "Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first."},
+  :GetIssuingDisputesDispute
+  {:method "get",
+   :path "/v1/issuing/disputes/{dispute}",
+   :description "Retrieves an Issuing Dispute object."},
+  :PostPaymentMethods
+  {:method "post",
+   :path "/v1/payment_methods",
+   :description
+   "Creates a PaymentMethod object. Read the Stripe.js reference to learn how to create PaymentMethods via Stripe.js."},
+  :PostInvoiceitems
+  {:method "post",
+   :path "/v1/invoiceitems",
+   :description
+   "Creates an item to be added to a draft invoice. If no invoice is specified, the item will be on the next invoice created for the customer specified."},
+  :GetIssuingCardsCardPin
+  {:method "get",
+   :path "/v1/issuing/cards/{card}/pin",
+   :description
+   "Retrieves the PIN for a card object, subject to cardholder verification, see Retrieve and update cardholder PIN"},
+  :GetAccountBankAccountsId
+  {:method "get",
+   :path "/v1/account/bank_accounts/{id}",
+   :description
+   "Retrieve a specified external account for a given account."},
+  :PostIssuingDisputesDispute
+  {:method "post",
+   :path "/v1/issuing/disputes/{dispute}",
+   :description
+   "Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :PostCharges
+  {:method "post",
+   :path "/v1/charges",
+   :description
+   "To charge a credit card or other payment source, you create a Charge object. If your API key is in test mode, the supplied payment source (e.g., card) won’t actually be charged, although everything else will occur as if in live mode. (Stripe assumes that the charge would have completed successfully)."},
+  :PostCustomersCustomerSubscriptions
+  {:method "post",
+   :path "/v1/customers/{customer}/subscriptions",
+   :description "Creates a new subscription on an existing customer."},
+  :PostIssuingAuthorizationsAuthorization
+  {:method "post",
+   :path "/v1/issuing/authorizations/{authorization}",
+   :description
+   "Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :PostCustomersCustomerBalanceTransactionsTransaction
+  {:method "post",
+   :path "/v1/customers/{customer}/balance_transactions/{transaction}",
+   :description
+   "Most customer balance transaction fields are immutable, but you may update its description and metadata."},
+  :GetSourcesSourceSourceTransactions
+  {:method "get",
+   :path "/v1/sources/{source}/source_transactions",
+   :description "List source transactions for a given source."},
+  :PostRefunds
+  {:method "post",
+   :path "/v1/refunds",
+   :description "Create a refund."},
+  :GetTransfers
+  {:method "get",
+   :path "/v1/transfers",
+   :description
+   "Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first."},
+  :GetPlansPlan
+  {:method "get",
+   :path "/v1/plans/{plan}",
+   :description "Retrieves the plan with the given ID."},
+  :PostIssuingCardsCard
+  {:method "post",
+   :path "/v1/issuing/cards/{card}",
+   :description
+   "Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :GetProducts
+  {:method "get",
+   :path "/v1/products",
+   :description
+   "Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first."},
+  :GetBalanceHistoryId
+  {:method "get",
+   :path "/v1/balance/history/{id}",
+   :description
+   "Retrieves the balance transaction with the given ID.\n\nNote that this endpoint previously used the path /v1/balance/history/:id."},
+  :PostTerminalReadersReader
+  {:method "post",
+   :path "/v1/terminal/readers/{reader}",
+   :description
+   "Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :GetAccountCapabilities
+  {:method "get",
+   :path "/v1/account/capabilities",
+   :description
+   "Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first."},
+  :GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount
+  {:method "get",
+   :path
+   "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount",
+   :description ""},
+  :PostTransfersTransfer
+  {:method "post",
+   :path "/v1/transfers/{transfer}",
+   :description
+   "Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.\n\nThis request accepts only metadata as an argument."},
+  :PostTerminalLocationsLocation
+  {:method "post",
+   :path "/v1/terminal/locations/{location}",
+   :description
+   "Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :GetAccountsAccountPersonsPerson
+  {:method "get",
+   :path "/v1/accounts/{account}/persons/{person}",
+   :description "Retrieves an existing person."},
+  :GetCharges
+  {:method "get",
+   :path "/v1/charges",
+   :description
+   "Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first."},
+  :GetFilesFile
+  {:method "get",
+   :path "/v1/files/{file}",
+   :description
+   "Retrieves the details of an existing file object. Supply the unique file ID from a file, and Stripe will return the corresponding file object. To access file contents, see the File Upload Guide."},
+  :GetApplePayDomains
+  {:method "get",
+   :path "/v1/apple_pay/domains",
+   :description "List apple pay domains."},
+  :GetPayouts
+  {:method "get",
+   :path "/v1/payouts",
+   :description
+   "Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first."},
+  :GetIssuingDisputes
+  {:method "get",
+   :path "/v1/issuing/disputes",
+   :description
+   "Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :PostAccountsAccountPeoplePerson
+  {:method "post",
+   :path "/v1/accounts/{account}/people/{person}",
+   :description "Updates an existing person."},
+  :PostPaymentIntentsIntent
+  {:method "post",
+   :path "/v1/payment_intents/{intent}",
+   :description
+   "Updates properties on a PaymentIntent object without confirming.\n\nDepending on which properties you update, you may need to confirm the\nPaymentIntent again. For example, updating the payment_method will\nalways require you to confirm the PaymentIntent again. If you prefer to\nupdate and confirm at the same time, we recommend updating properties via\nthe confirm API instead."},
+  :GetReviewsReview
+  {:method "get",
+   :path "/v1/reviews/{review}",
+   :description "Retrieves a Review object."},
+  :PostOrdersId
+  {:method "post",
+   :path "/v1/orders/{id}",
+   :description
+   "Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :GetAccountsAccountCapabilitiesCapability
+  {:method "get",
+   :path "/v1/accounts/{account}/capabilities/{capability}",
+   :description
+   "Retrieves information about the specified Account Capability."},
+  :GetFileLinksLink
+  {:method "get",
+   :path "/v1/file_links/{link}",
+   :description "Retrieves the file link with the given ID."},
+  :GetAccountPeoplePerson
+  {:method "get",
+   :path "/v1/account/people/{person}",
+   :description "Retrieves an existing person."},
+  :GetSigmaScheduledQueryRunsScheduledQueryRun
+  {:method "get",
+   :path "/v1/sigma/scheduled_query_runs/{scheduled_query_run}",
+   :description "Retrieves the details of an scheduled query run."},
+  :PostSubscriptionSchedulesScheduleRelease
+  {:method "post",
+   :path "/v1/subscription_schedules/{schedule}/release",
+   :description
+   "Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription’s ID to the released_subscription property."},
+  :DeleteCouponsCoupon
+  {:method "delete",
+   :path "/v1/coupons/{coupon}",
+   :description
+   "You can delete coupons via the coupon management page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API."},
+  :GetIssuingSettlementsSettlement
+  {:method "get",
+   :path "/v1/issuing/settlements/{settlement}",
+   :description "Retrieves an Issuing Settlement object."},
+  :GetIssuingCardholders
+  {:method "get",
+   :path "/v1/issuing/cardholders",
+   :description
+   "Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :GetBitcoinReceivers
+  {:method "get",
+   :path "/v1/bitcoin/receivers",
+   :description
+   "Returns a list of your receivers. Receivers are returned sorted by creation date, with the most recently created receivers appearing first.",
+   :deprecated true},
+  :GetCreditNotesCreditNoteLines
+  {:method "get",
+   :path "/v1/credit_notes/{credit_note}/lines",
+   :description
+   "When retrieving a credit note, you’ll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items."},
+  :PostInvoicesInvoiceSend
+  {:method "post",
+   :path "/v1/invoices/{invoice}/send",
+   :description
+   "Stripe will automatically send invoices to customers according to your subscriptions settings. However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.\n\nRequests made in test-mode result in no emails being sent, despite sending an invoice.sent event."},
+  :PostFileLinks
+  {:method "post",
+   :path "/v1/file_links",
+   :description "Creates a new file link object."},
+  :PostAccountPeople
+  {:method "post",
+   :path "/v1/account/people",
+   :description "Creates a new person."},
+  :GetCreditNotesId
+  {:method "get",
+   :path "/v1/credit_notes/{id}",
+   :description
+   "Retrieves the credit note object with the given identifier."},
+  :PostCoupons
+  {:method "post",
+   :path "/v1/coupons",
+   :description
+   "You can create coupons easily via the coupon management page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.\n\nA coupon has either a percent_off or an amount_off and currency. If you set an amount_off, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of 100 will have a final total of 0 if a coupon with an amount_off of 200 is applied to it and an invoice with a subtotal of 300 will have a final total of 100 if a coupon with an amount_off of 200 is applied to it."},
+  :PostPaymentIntentsIntentCancel
+  {:method "post",
+   :path "/v1/payment_intents/{intent}/cancel",
+   :description
+   "A PaymentIntent object can be canceled when it is in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action. \n\nOnce canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with status='requires_capture', the remaining amount_capturable will automatically be refunded."},
+  :GetIssuingTransactionsTransaction
+  {:method "get",
+   :path "/v1/issuing/transactions/{transaction}",
+   :description "Retrieves an Issuing Transaction object."},
+  :GetSubscriptionSchedules
+  {:method "get",
+   :path "/v1/subscription_schedules",
+   :description "Retrieves the list of your subscription schedules."},
+  :DeleteCustomersCustomerSourcesId
+  {:method "delete",
+   :path "/v1/customers/{customer}/sources/{id}",
+   :description "Delete a specified source for a given customer."},
+  :PostSetupIntentsIntent
+  {:method "post",
+   :path "/v1/setup_intents/{intent}",
+   :description "Updates a SetupIntent object."},
+  :GetCustomers
+  {:method "get",
+   :path "/v1/customers",
+   :description
+   "Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first."},
+  :GetCustomersCustomerSources
+  {:method "get",
+   :path "/v1/customers/{customer}/sources",
+   :description "List sources for a specified customer."},
+  :PostFiles
+  {:method "post",
+   :path "/v1/files",
+   :description
+   "To upload a file to Stripe, you’ll need to send a request of type multipart/form-data. The request should contain the file you would like to upload, as well as the parameters for creating a file.\n\nAll of Stripe’s officially supported Client libraries should have support for sending multipart/form-data."},
+  :GetAccounts
+  {:method "get",
+   :path "/v1/accounts",
+   :description
+   "Returns a list of accounts connected to your platform via Connect. If you’re not a platform, the list is empty."},
+  :PostSubscriptionSchedulesScheduleCancel
+  {:method "post",
+   :path "/v1/subscription_schedules/{schedule}/cancel",
+   :description
+   "Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active."},
+  :PostDisputesDispute
+  {:method "post",
+   :path "/v1/disputes/{dispute}",
+   :description
+   "When you get a dispute, contacting your customer is always the best first step. If that doesn’t work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your dashboard, but if you prefer, you can use the API to submit evidence programmatically.\n\nDepending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our guide to dispute types."},
+  :GetTerminalLocationsLocation
+  {:method "get",
+   :path "/v1/terminal/locations/{location}",
+   :description "Retrieves a Location object."},
+  :PostIssuingCardholders
+  {:method "post",
+   :path "/v1/issuing/cardholders",
+   :description
+   "Creates a new Issuing Cardholder object that can be issued cards."},
+  :PostChargesCharge
+  {:method "post",
+   :path "/v1/charges/{charge}",
+   :description
+   "Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :PostCheckoutSessions
+  {:method "post",
+   :path "/v1/checkout/sessions",
+   :description "Creates a Session object."},
+  :PostTerminalReaders
+  {:method "post",
+   :path "/v1/terminal/readers",
+   :description "Creates a new Reader object."},
+  :GetRefundsRefund
+  {:method "get",
+   :path "/v1/refunds/{refund}",
+   :description "Retrieves the details of an existing refund."},
+  :DeleteCustomersCustomerSubscriptionsSubscriptionExposedId
+  {:method "delete",
+   :path
+   "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}",
+   :description
+   "Cancels a customer’s subscription. If you set the at_period_end parameter to true, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default false value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.\n\nNote, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually deleted. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.\n\nBy default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all."},
+  :DeleteProductsId
+  {:method "delete",
+   :path "/v1/products/{id}",
+   :description
+   "Delete a product. Deleting a product with type=good is only possible if it has no SKUs associated with it. Deleting a product with type=service is only possible if it has no plans associated with it."},
+  :PostSourcesSourceVerify
+  {:method "post",
+   :path "/v1/sources/{source}/verify",
+   :description "Verify a given source."},
+  :GetDisputesDispute
+  {:method "get",
+   :path "/v1/disputes/{dispute}",
+   :description "Retrieves the dispute with the given ID."},
+  :PostChargesChargeRefund
+  {:method "post",
+   :path "/v1/charges/{charge}/refund",
+   :description
+   "When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.\n\nCreating a new refund will refund a charge that has previously been created but not yet refunded.\nFunds will be refunded to the credit or debit card that was originally charged.\n\nYou can optionally refund only part of a charge.\nYou can do so multiple times, until the entire charge has been refunded.\n\nOnce entirely refunded, a charge can’t be refunded again.\nThis method will raise an error when called on an already-refunded charge,\nor when trying to refund more money than is left on a charge."},
+  :PostPlans
+  {:method "post",
+   :path "/v1/plans",
+   :description
+   "You can create plans using the API, or in the Stripe Dashboard."},
+  :PostRecipients
+  {:method "post",
+   :path "/v1/recipients",
+   :description
+   "Creates a new Recipient object and verifies the recipient’s identity.\nAlso verifies the recipient’s bank account information or debit card, if either is provided.",
+   :deprecated true},
+  :GetBalanceTransactions
+  {:method "get",
+   :path "/v1/balance_transactions",
+   :description
+   "Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.\n\nNote that this endpoint was previously called “Balance history” and used the path /v1/balance/history."},
+  :GetIssuingAuthorizations
+  {:method "get",
+   :path "/v1/issuing/authorizations",
+   :description
+   "Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :GetProductsId
+  {:method "get",
+   :path "/v1/products/{id}",
+   :description
+   "Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information."},
+  :GetRadarEarlyFraudWarnings
+  {:method "get",
+   :path "/v1/radar/early_fraud_warnings",
+   :description "Returns a list of early fraud warnings."},
+  :PostInvoicesInvoiceVoid
+  {:method "post",
+   :path "/v1/invoices/{invoice}/void",
+   :description
+   "Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to deletion, however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found."},
+  :DeleteSubscriptionsSubscriptionExposedId
+  {:method "delete",
+   :path "/v1/subscriptions/{subscription_exposed_id}",
+   :description
+   "Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.\n\nNote, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually deleted. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.\n\nBy default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all."},
+  :PostIssuingAuthorizationsAuthorizationDecline
+  {:method "post",
+   :path "/v1/issuing/authorizations/{authorization}/decline",
+   :description "Declines a pending Issuing Authorization object."},
+  :PostSubscriptionItemsItem
+  {:method "post",
+   :path "/v1/subscription_items/{item}",
+   :description
+   "Updates the plan or quantity of an item on a current subscription."},
+  :PostIssuingTransactionsTransaction
+  {:method "post",
+   :path "/v1/issuing/transactions/{transaction}",
+   :description
+   "Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :PostSkusId
+  {:method "post",
+   :path "/v1/skus/{id}",
+   :description
+   "Updates the specific SKU by setting the values of the parameters passed. Any parameters not provided will be left unchanged.\n\nNote that a SKU’s attributes are not editable. Instead, you would need to deactivate the existing SKU and create a new one with the new attribute values."},
+  :PostAccountsAccountBankAccountsId
+  {:method "post",
+   :path "/v1/accounts/{account}/bank_accounts/{id}",
+   :description
+   "Updates the metadata, account holder name, and account holder type of a bank account belonging to a Custom account, and optionally sets it as the default for its currency. Other bank account details are not editable by design.\nYou can re-enable a disabled bank account by performing an update call without providing any arguments or changes."},
+  :GetChargesChargeRefundsRefund
+  {:method "get",
+   :path "/v1/charges/{charge}/refunds/{refund}",
+   :description "Retrieves the details of an existing refund."},
+  :DeleteCustomersCustomerCardsId
+  {:method "delete",
+   :path "/v1/customers/{customer}/cards/{id}",
+   :description "Delete a specified source for a given customer."},
+  :GetAccountPersonsPerson
+  {:method "get",
+   :path "/v1/account/persons/{person}",
+   :description "Retrieves an existing person."},
+  :GetAccountCapabilitiesCapability
+  {:method "get",
+   :path "/v1/account/capabilities/{capability}",
+   :description
+   "Retrieves information about the specified Account Capability."},
+  :PostOrdersIdReturns
+  {:method "post",
+   :path "/v1/orders/{id}/returns",
+   :description
+   "Return all or part of an order. The order must have a status of paid or fulfilled before it can be returned. Once all items have been returned, the order will become canceled or returned depending on which status the order started in."},
+  :GetInvoiceitems
+  {:method "get",
+   :path "/v1/invoiceitems",
+   :description
+   "Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first."},
+  :GetTerminalLocations
+  {:method "get",
+   :path "/v1/terminal/locations",
+   :description "Returns a list of Location objects."},
+  :GetTaxRates
+  {:method "get",
+   :path "/v1/tax_rates",
+   :description
+   "Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first."},
+  :GetOrderReturns
+  {:method "get",
+   :path "/v1/order_returns",
+   :description
+   "Returns a list of your order returns. The returns are returned sorted by creation date, with the most recently created return appearing first."},
+  :GetAccountsAccountExternalAccountsId
+  {:method "get",
+   :path "/v1/accounts/{account}/external_accounts/{id}",
+   :description
+   "Retrieve a specified external account for a given account."},
+  :PostAccountExternalAccounts
+  {:method "post",
+   :path "/v1/account/external_accounts",
+   :description "Create an external account for a given account."},
+  :PostTokens
+  {:method "post",
+   :path "/v1/tokens",
+   :description
+   "Creates a single-use token that represents a bank account’s details.\nThis token can be used with any API method in place of a bank account dictionary. This token can be used only once, by attaching it to a Custom account."},
+  :GetSubscriptionsSubscriptionExposedId
+  {:method "get",
+   :path "/v1/subscriptions/{subscription_exposed_id}",
+   :description "Retrieves the subscription with the given ID."},
+  :PostApplicationFeesFeeRefundsId
+  {:method "post",
+   :path "/v1/application_fees/{fee}/refunds/{id}",
+   :description
+   "Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.\n\nThis request only accepts metadata as an argument."},
+  :PostCustomersCustomerSubscriptionsSubscriptionExposedId
+  {:method "post",
+   :path
+   "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}",
+   :description
+   "Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the upcoming invoice endpoint."},
+  :GetRecipients
+  {:method "get",
+   :path "/v1/recipients",
+   :description
+   "Returns a list of your recipients. The recipients are returned sorted by creation date, with the most recently created recipients appearing first.",
+   :deprecated true},
+  :GetRadarValueListsValueList
+  {:method "get",
+   :path "/v1/radar/value_lists/{value_list}",
+   :description "Retrieves a ValueList object."},
+  :GetCustomersCustomerSubscriptions
+  {:method "get",
+   :path "/v1/customers/{customer}/subscriptions",
+   :description
+   "You can see a list of the customer’s active subscriptions. Note that the 10 most recent active subscriptions are always available by default on the customer object. If you need more than those 10, you can use the limit and starting_after parameters to page through additional subscriptions."},
+  :PostInvoicesInvoiceMarkUncollectible
+  {:method "post",
+   :path "/v1/invoices/{invoice}/mark_uncollectible",
+   :description
+   "Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes."},
+  :PostProductsId
+  {:method "post",
+   :path "/v1/products/{id}",
+   :description
+   "Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :GetSubscriptionSchedulesSchedule
+  {:method "get",
+   :path "/v1/subscription_schedules/{schedule}",
+   :description
+   "Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation."},
+  :GetAccountExternalAccountsId
+  {:method "get",
+   :path "/v1/account/external_accounts/{id}",
+   :description
+   "Retrieve a specified external account for a given account."},
+  :GetCustomersCustomerSubscriptionsSubscriptionExposedId
+  {:method "get",
+   :path
+   "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}",
+   :description "Retrieves the subscription with the given ID."},
+  :PostApplePayDomains
+  {:method "post",
+   :path "/v1/apple_pay/domains",
+   :description "Create an apple pay domain."},
+  :GetSubscriptionItems
+  {:method "get",
+   :path "/v1/subscription_items",
+   :description
+   "Returns a list of your subscription items for a given subscription."},
+  :PostRadarValueListsValueList
+  {:method "post",
+   :path "/v1/radar/value_lists/{value_list}",
+   :description
+   "Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable."},
+  :GetCreditNotesPreview
+  {:method "get",
+   :path "/v1/credit_notes/preview",
+   :description "Get a preview of a credit note without creating it."},
+  :GetRadarValueListItemsItem
+  {:method "get",
+   :path "/v1/radar/value_list_items/{item}",
+   :description "Retrieves a ValueListItem object."},
+  :PostAccountsAccount
+  {:method "post",
+   :path "/v1/accounts/{account}",
+   :description
+   "Updates a connected Express or Custom account by setting the values of the parameters passed. Any parameters not provided are left unchanged. Most parameters can be changed only for Custom accounts. (These are marked Custom Only below.) Parameters marked Custom and Express are supported by both account types.\n\nTo update your own account, use the Dashboard. Refer to our Connect documentation to learn more about updating accounts."},
+  :GetApplicationFeesId
+  {:method "get",
+   :path "/v1/application_fees/{id}",
+   :description
+   "Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee."},
+  :GetTopupsTopup
+  {:method "get",
+   :path "/v1/topups/{topup}",
+   :description
+   "Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information."},
+  :GetInvoicesUpcoming
+  {:method "get",
+   :path "/v1/invoices/upcoming",
+   :description
+   "At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discount that is applicable to the customer.\n\nNote that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer’s discount.\n\nYou can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a proration_date parameter when doing the actual subscription update. The value passed in should be the same as the subscription_proration_date returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date on the upcoming invoice resource."},
+  :PostAccountBankAccountsId
+  {:method "post",
+   :path "/v1/account/bank_accounts/{id}",
+   :description
+   "Updates the metadata, account holder name, and account holder type of a bank account belonging to a Custom account, and optionally sets it as the default for its currency. Other bank account details are not editable by design.\nYou can re-enable a disabled bank account by performing an update call without providing any arguments or changes."},
+  :PostTaxRates
+  {:method "post",
+   :path "/v1/tax_rates",
+   :description "Creates a new tax rate."},
+  :PostAccountsAccountLoginLinks
+  {:method "post",
+   :path "/v1/accounts/{account}/login_links",
+   :description
+   "Creates a single-use login link for an Express account to access their Stripe dashboard.\n\nYou may only create login links for Express accounts connected to your platform."},
+  :DeleteTerminalLocationsLocation
+  {:method "delete",
+   :path "/v1/terminal/locations/{location}",
+   :description "Deletes a Location object."},
+  :PostCustomersCustomerCardsId
+  {:method "post",
+   :path "/v1/customers/{customer}/cards/{id}",
+   :description "Update a specified source for a given customer."},
+  :GetSourcesSource
+  {:method "get",
+   :path "/v1/sources/{source}",
+   :description
+   "Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information."},
+  :Post3dSecure
+  {:method "post",
+   :path "/v1/3d_secure",
+   :description "Initiate 3D Secure authentication."},
+  :PostSubscriptionSchedules
+  {:method "post",
+   :path "/v1/subscription_schedules",
+   :description
+   "Creates a new subscription schedule object. Each customer can have up to 25 active or scheduled subscriptions."},
+  :GetExchangeRatesCurrency
+  {:method "get",
+   :path "/v1/exchange_rates/{currency}",
+   :description
+   "Retrieves the exchange rates from the given currency to every supported currency."},
+  :GetIssuingAuthorizationsAuthorization
+  {:method "get",
+   :path "/v1/issuing/authorizations/{authorization}",
+   :description "Retrieves an Issuing Authorization object."},
+  :PostAccountPeoplePerson
+  {:method "post",
+   :path "/v1/account/people/{person}",
+   :description "Updates an existing person."},
+  :PostChargesChargeRefundsRefund
+  {:method "post",
+   :path "/v1/charges/{charge}/refunds/{refund}",
+   :description "Update a specified refund."},
+  :DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount
+  {:method "delete",
+   :path
+   "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount",
+   :description
+   "Removes the currently applied discount on a customer."},
+  :GetOrdersId
+  {:method "get",
+   :path "/v1/orders/{id}",
+   :description
+   "Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information."},
+  :PostSetupIntentsIntentCancel
+  {:method "post",
+   :path "/v1/setup_intents/{intent}/cancel",
+   :description
+   "A SetupIntent object can be canceled when it is in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action. \n\nOnce canceled, setup is abandoned and any operations on the SetupIntent will fail with an error."},
+  :PostInvoiceitemsInvoiceitem
+  {:method "post",
+   :path "/v1/invoiceitems/{invoiceitem}",
+   :description
+   "Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it’s attached to is closed."},
+  :GetIssuingSettlements
+  {:method "get",
+   :path "/v1/issuing/settlements",
+   :description
+   "Returns a list of Issuing Settlement objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :GetTerminalReadersReader
+  {:method "get",
+   :path "/v1/terminal/readers/{reader}",
+   :description "Retrieves a Reader object."},
+  :PostPayoutsPayoutCancel
+  {:method "post",
+   :path "/v1/payouts/{payout}/cancel",
+   :description
+   "A previously created payout can be canceled if it has not yet been paid out. Funds will be refunded to your available balance. You may not cancel automatic Stripe payouts."},
+  :PutAccountLogout
+  {:method "put",
+   :path "/v1/account/logout",
+   :description
+   "Invalidates all sessions for a light account, for a platform to use during platform logout.\n\nYou may only log out Express accounts connected to your platform."},
+  :GetMandatesMandate
+  {:method "get",
+   :path "/v1/mandates/{mandate}",
+   :description "Retrieves a Mandate object."},
+  :GetSourcesSourceSourceTransactionsSourceTransaction
+  {:method "get",
+   :path
+   "/v1/sources/{source}/source_transactions/{source_transaction}",
+   :description
+   "Retrieve an existing source transaction object. Supply the unique source ID from a source creation request and the source transaction ID and Stripe will return the corresponding up-to-date source object information."},
+  :PostCreditNotesIdVoid
+  {:method "post",
+   :path "/v1/credit_notes/{id}/void",
+   :description
+   "Marks a credit note as void. Learn more about voiding credit notes."},
+  :GetChargesChargeDispute
+  {:method "get",
+   :path "/v1/charges/{charge}/dispute",
+   :description "Retrieve a dispute for a specified charge."},
+  :GetPaymentMethods
+  {:method "get",
+   :path "/v1/payment_methods",
+   :description
+   "Returns a list of PaymentMethods for a given Customer"},
+  :DeleteAccount
+  {:method "delete",
+   :path "/v1/account",
+   :description
+   "With Connect, you can delete Custom or Express accounts you manage.\n\nAccounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.\n\nIf you want to delete your own account, use the account information tab in your account settings instead."},
+  :GetAccountsAccountPeoplePerson
+  {:method "get",
+   :path "/v1/accounts/{account}/people/{person}",
+   :description "Retrieves an existing person."},
+  :GetCustomersCustomer
+  {:method "get",
+   :path "/v1/customers/{customer}",
+   :description
+   "Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation."},
+  :GetIssuerFraudRecords
+  {:method "get",
+   :path "/v1/issuer_fraud_records",
+   :description "Returns a list of issuer fraud records.",
+   :deprecated true},
+  :GetReportingReportRunsReportRun
+  {:method "get",
+   :path "/v1/reporting/report_runs/{report_run}",
+   :description
+   "Retrieves the details of an existing Report Run. (Requires a live-mode API key.)"},
+  :PostSubscriptionItemsSubscriptionItemUsageRecords
+  {:method "post",
+   :path "/v1/subscription_items/{subscription_item}/usage_records",
+   :description
+   "Creates a usage record for a specified subscription item and date, and fills it with a quantity.\n\nUsage records provide quantity information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the metered billing plan, Stripe helps you send accurate invoices to your customers.\n\nThe default calculation for usage is to add up all the quantity values of the usage records within a billing period. You can change this default behavior with the billing plan’s aggregate_usage parameter. When there is more than one usage record with the same timestamp, Stripe adds the quantity values together. In most cases, this is the desired resolution, however, you can change this behavior with the action parameter.\n\nThe default pricing model for metered billing is per-unit pricing. For finer granularity, you can configure metered billing to have a tiered pricing model."},
+  :GetEventsId
+  {:method "get",
+   :path "/v1/events/{id}",
+   :description
+   "Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook."},
+  :GetInvoices
+  {:method "get",
+   :path "/v1/invoices",
+   :description
+   "You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first."},
+  :PostTopupsTopup
+  {:method "post",
+   :path "/v1/topups/{topup}",
+   :description
+   "Updates the metadata of a top-up. Other top-up details are not editable by design."},
+  :PostCustomersCustomerBalanceTransactions
+  {:method "post",
+   :path "/v1/customers/{customer}/balance_transactions",
+   :description
+   "Creates an immutable transaction that updates the customer’s balance."},
+  :GetInvoicesInvoiceLines
+  {:method "get",
+   :path "/v1/invoices/{invoice}/lines",
+   :description
+   "When retrieving an invoice, you’ll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items."},
+  :DeleteCustomersCustomerBankAccountsId
+  {:method "delete",
+   :path "/v1/customers/{customer}/bank_accounts/{id}",
+   :description "Delete a specified source for a given customer."},
+  :GetIssuingCardsCard
+  {:method "get",
+   :path "/v1/issuing/cards/{card}",
+   :description "Retrieves an Issuing Card object."},
+  :GetAccountsAccountPersons
+  {:method "get",
+   :path "/v1/accounts/{account}/persons",
+   :description
+   "Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first."},
+  :PostSubscriptionsSubscriptionExposedId
+  {:method "post",
+   :path "/v1/subscriptions/{subscription_exposed_id}",
+   :description
+   "Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the upcoming invoice endpoint."},
+  :PostAccountsAccountReject
+  {:method "post",
+   :path "/v1/accounts/{account}/reject",
+   :description
+   "With Connect, you may flag accounts as suspicious.\n\nTest-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero."},
+  :DeleteInvoicesInvoice
+  {:method "delete",
+   :path "/v1/invoices/{invoice}",
+   :description
+   "Permanently deletes a draft invoice. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized, it must be voided."},
+  :GetTaxRatesTaxRate
+  {:method "get",
+   :path "/v1/tax_rates/{tax_rate}",
+   :description "Retrieves a tax rate with the given ID"},
+  :PostPaymentIntentsIntentCapture
+  {:method "post",
+   :path "/v1/payment_intents/{intent}/capture",
+   :description
+   "Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.\n\nUncaptured PaymentIntents will be canceled exactly seven days after they are created.\n\nLearn more about separate authorization and capture."},
+  :GetIssuingCardsCardDetails
+  {:method "get",
+   :path "/v1/issuing/cards/{card}/details",
+   :description
+   "For virtual cards only. Retrieves an Issuing card_details object that contains the sensitive details of a virtual card."},
+  :PostAccountsAccountPersonsPerson
+  {:method "post",
+   :path "/v1/accounts/{account}/persons/{person}",
+   :description "Updates an existing person."},
+  :PostPaymentIntents
+  {:method "post",
+   :path "/v1/payment_intents",
+   :description
+   "Creates a PaymentIntent object.\n\nAfter the PaymentIntent is created, attach a payment method and confirm\nto continue the payment. You can read more about the different payment flows\navailable via the Payment Intents API here.\n\nWhen confirm=true is used during creation, it is equivalent to creating\nand confirming the PaymentIntent in the same call. You may use any parameters\navailable in the confirm API when confirm=true\nis supplied."},
+  :PostCustomers
+  {:method "post",
+   :path "/v1/customers",
+   :description "Creates a new customer object."},
+  :DeleteAccountPeoplePerson
+  {:method "delete",
+   :path "/v1/account/people/{person}",
+   :description
+   "Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file."},
+  :DeleteSubscriptionItemsItem
+  {:method "delete",
+   :path "/v1/subscription_items/{item}",
+   :description
+   "Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription."},
+  :GetSetupIntentsIntent
+  {:method "get",
+   :path "/v1/setup_intents/{intent}",
+   :description
+   "Retrieves the details of a SetupIntent that has previously been created. \n\nClient-side retrieval using a publishable key is allowed when the client_secret is provided in the query string. \n\nWhen retrieved with a publishable key, only a subset of properties will be returned. Please refer to the SetupIntent object reference for more details."},
+  :PostIssuingSettlementsSettlement
+  {:method "post",
+   :path "/v1/issuing/settlements/{settlement}",
+   :description
+   "Updates the specified Issuing Settlement object by setting the values of the parameters passed. Any parameters not provided will be left unchanged."},
+  :DeleteAccountsAccount
+  {:method "delete",
+   :path "/v1/accounts/{account}",
+   :description
+   "With Connect, you can delete Custom or Express accounts you manage.\n\nAccounts created using test-mode keys can be deleted at any time. Accounts created using live-mode keys can only be deleted once all balances are zero.\n\nIf you want to delete your own account, use the account information tab in your account settings instead."},
+  :PostTaxRatesTaxRate
+  {:method "post",
+   :path "/v1/tax_rates/{tax_rate}",
+   :description "Updates an existing tax rate."},
+  :PostWebhookEndpoints
+  {:method "post",
+   :path "/v1/webhook_endpoints",
+   :description
+   "A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the webhooks settings section of the Dashboard."},
+  :GetCheckoutSessionsSession
+  {:method "get",
+   :path "/v1/checkout/sessions/{session}",
+   :description "Retrieves a Session object."},
+  :PostAccountPersonsPerson
+  {:method "post",
+   :path "/v1/account/persons/{person}",
+   :description "Updates an existing person."},
+  :GetWebhookEndpoints
+  {:method "get",
+   :path "/v1/webhook_endpoints",
+   :description "Returns a list of your webhook endpoints."},
+  :DeleteRecipientsId
+  {:method "delete",
+   :path "/v1/recipients/{id}",
+   :description
+   "Permanently deletes a recipient. It cannot be undone.",
+   :deprecated true},
+  :GetPlans
+  {:method "get",
+   :path "/v1/plans",
+   :description "Returns a list of your plans."},
+  :DeleteInvoiceitemsInvoiceitem
+  {:method "delete",
+   :path "/v1/invoiceitems/{invoiceitem}",
+   :description
+   "Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice."},
+  :DeleteCustomersCustomer
+  {:method "delete",
+   :path "/v1/customers/{customer}",
+   :description
+   "Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer."},
+  :GetRadarValueListItems
+  {:method "get",
+   :path "/v1/radar/value_list_items",
+   :description
+   "Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :PostAccounts
+  {:method "post",
+   :path "/v1/accounts",
+   :description
+   "With Connect, you can create Stripe accounts for your users.\nTo do this, you’ll first need to register your platform.\n\nFor Standard accounts, parameters other than country, email, and type\nare used to prefill the account application that we ask the account holder to complete."},
+  :PostSourcesSource
+  {:method "post",
+   :path "/v1/sources/{source}",
+   :description
+   "Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.\n\nThis request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our payment method guides for more detail."},
+  :PostOrdersIdPay
+  {:method "post",
+   :path "/v1/orders/{id}/pay",
+   :description
+   "Pay an order by providing a source to create a payment."},
+  :GetInvoiceitemsInvoiceitem
+  {:method "get",
+   :path "/v1/invoiceitems/{invoiceitem}",
+   :description "Retrieves the invoice item with the given ID."},
+  :PostChargesChargeDispute
+  {:method "post",
+   :path "/v1/charges/{charge}/dispute",
+   :description ""},
+  :GetCustomersCustomerBalanceTransactions
+  {:method "get",
+   :path "/v1/customers/{customer}/balance_transactions",
+   :description
+   "Returns a list of transactions that updated the customer’s balance."},
+  :PostTransfers
+  {:method "post",
+   :path "/v1/transfers",
+   :description
+   "To send funds from your Stripe account to a connected account, you create a new transfer object. Your Stripe balance must be able to cover the transfer amount, or you’ll receive an “Insufficient Funds” error."},
+  :PostWebhookEndpointsWebhookEndpoint
+  {:method "post",
+   :path "/v1/webhook_endpoints/{webhook_endpoint}",
+   :description
+   "Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint."},
+  :GetTokensToken
+  {:method "get",
+   :path "/v1/tokens/{token}",
+   :description "Retrieves the token with the given ID."},
+  :PostSkus
+  {:method "post",
+   :path "/v1/skus",
+   :description "Creates a new SKU associated with a product."},
+  :PostPlansPlan
+  {:method "post",
+   :path "/v1/plans/{plan}",
+   :description
+   "Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan’s ID, amount, currency, or billing cycle."},
+  :PostRadarValueListItems
+  {:method "post",
+   :path "/v1/radar/value_list_items",
+   :description
+   "Creates a new ValueListItem object, which is added to the specified parent value list."},
+  :GetCheckoutSessions
+  {:method "get",
+   :path "/v1/checkout/sessions",
+   :description "Returns a list of Checkout Sessions."},
+  :DeleteEphemeralKeysKey
+  {:method "delete",
+   :path "/v1/ephemeral_keys/{key}",
+   :description
+   "Invalidates a short-lived API key for a given resource."},
+  :PostTerminalConnectionTokens
+  {:method "post",
+   :path "/v1/terminal/connection_tokens",
+   :description
+   "To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token."},
+  :GetCustomersCustomerTaxIds
+  {:method "get",
+   :path "/v1/customers/{customer}/tax_ids",
+   :description "Returns a list of tax IDs for a customer."},
+  :GetFileLinks
+  {:method "get",
+   :path "/v1/file_links",
+   :description "Returns a list of file links."},
+  :PostAccountLoginLinks
+  {:method "post",
+   :path "/v1/account/login_links",
+   :description
+   "Creates a single-use login link for an Express account to access their Stripe dashboard.\n\nYou may only create login links for Express accounts connected to your platform."},
+  :GetRadarValueLists
+  {:method "get",
+   :path "/v1/radar/value_lists",
+   :description
+   "Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first."},
+  :GetSubscriptions
+  {:method "get",
+   :path "/v1/subscriptions",
+   :description
+   "By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled."},
+  :GetCustomersCustomerTaxIdsId
+  {:method "get",
+   :path "/v1/customers/{customer}/tax_ids/{id}",
+   :description
+   "Retrieves the TaxID object with the given identifier."},
+  :PostAccountCapabilitiesCapability
+  {:method "post",
+   :path "/v1/account/capabilities/{capability}",
+   :description "Updates an existing Account Capability."},
+  :GetTopups
+  {:method "get",
+   :path "/v1/topups",
+   :description "Returns a list of top-ups."},
+  :PostSubscriptionItems
+  {:method "post",
+   :path "/v1/subscription_items",
+   :description
+   "Adds a new item to an existing subscription. No existing items will be changed or replaced."},
+  :GetReportingReportTypesReportType
+  {:method "get",
+   :path "/v1/reporting/report_types/{report_type}",
+   :description
+   "Retrieves the details of a Report Type. (Requires a live-mode API key.)"},
+  :PostCreditNotes
+  {:method "post",
+   :path "/v1/credit_notes",
+   :description
+   "Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces\nits amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result\nin any combination of the following:\n\n\n Refund: create a new refund (using refund_amount) or link an existing refund (using refund).\n Customer balance credit: credit the customer’s balance (using credit_amount) which will be automatically applied to their next invoice when it’s finalized.\n Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).\n\n\nFor post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.\n\nYou may issue multiple credit notes for an invoice. Each credit note will increment the invoice’s pre_payment_credit_notes_amount\nor post_payment_credit_notes_amount depending on its status at the time of credit note creation."},
+  :DeleteRadarValueListItemsItem
+  {:method "delete",
+   :path "/v1/radar/value_list_items/{item}",
+   :description
+   "Deletes a ValueListItem object, removing it from its parent value list."},
+  :GetTransfersIdReversals
+  {:method "get",
+   :path "/v1/transfers/{id}/reversals",
+   :description
+   "You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals."},
+  :GetSourcesSourceMandateNotificationsMandateNotification
+  {:method "get",
+   :path
+   "/v1/sources/{source}/mandate_notifications/{mandate_notification}",
+   :description "Retrieves a new Source MandateNotification."},
+  :GetSkus
+  {:method "get",
+   :path "/v1/skus",
+   :description
+   "Returns a list of your SKUs. The SKUs are returned sorted by creation date, with the most recently created SKUs appearing first."},
+  :PostIssuingAuthorizationsAuthorizationApprove
+  {:method "post",
+   :path "/v1/issuing/authorizations/{authorization}/approve",
+   :description "Approves a pending Issuing Authorization object."},
+  :PostTransfersTransferReversalsId
+  {:method "post",
+   :path "/v1/transfers/{transfer}/reversals/{id}",
+   :description
+   "Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.\n\nThis request only accepts metadata and description as arguments."},
+  :PostCustomersCustomerSourcesIdVerify
+  {:method "post",
+   :path "/v1/customers/{customer}/sources/{id}/verify",
+   :description
+   "Verify a specified bank account for a given customer."},
+  :GetCreditNotes
+  {:method "get",
+   :path "/v1/credit_notes",
+   :description "Returns a list of credit notes."},
+  :GetChargesCharge
+  {:method "get",
+   :path "/v1/charges/{charge}",
+   :description
+   "Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge."},
+  :PostRadarValueLists
+  {:method "post",
+   :path "/v1/radar/value_lists",
+   :description
+   "Creates a new ValueList object, which can then be referenced in rules."}},
+ :url "https://api.stripe.com/",
+ :version "2020-03-02",
+ :sha "f8c0941a343527a42c8d3072547303f13aa4a819"}
