@@ -57,16 +57,16 @@ For now see `dev/user.clj`
 
 ### TODO/IDEAS
 
-* testing
-* file uploads are not supported
-* automatic path-params, query-params and form-data
-* webhook validation
-* public client api docs and docstrings
-* better doc for operations
-* exploration via datafy/nav
-* auto pagination?
-* dev time request validation via clojure.spec?
-* configurable http-client? Java 11 HttpClient?
-* cli - native image?
-* cljs?
+* [ ] testing
+* [ ] file uploads are not supported
+* [ ] automatic path-params, query-params and form-data
+* [x] ~~webhook validation~~
+* [ ] public client api docs and docstrings
+* [ ] better doc for operations
+* [ ] exploration via datafy/nav
+* [ ] auto pagination?
+* [ ] dev time request validation via clojure.spec?
+* [ ] configurable http-client? Java 11 HttpClient?
+* [ ] cli - native image?
+* [ ] cljs?
 
