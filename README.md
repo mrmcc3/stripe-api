@@ -66,7 +66,8 @@ For now see `dev/user.clj`
 * [ ] exploration via datafy/nav
 * [ ] auto pagination?
 * [ ] dev time request validation via clojure.spec?
-* [ ] configurable http-client? Java 11 HttpClient?
+* [x] ~~configurable http-client? Java 11 HttpClient?~~
+    * [ ] fallback to URLConnection on Java 8
 * [ ] cli - native image?
 * [ ] cljs?
 

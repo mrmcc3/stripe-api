@@ -1,15 +1,15 @@
-(ns mrmcc3.stripe.client.form
+(ns mrmcc3.stripe.client.util.form-encoder
   (:require
     [clojure.string :as str])
   (:import
     (java.net URLEncoder)
     (java.util Date)))
 
-(defn encode-url [s]
+(defn encode-url [^String s]
   (URLEncoder/encode s "UTF-8"))
 
 (defn encode-key [k]
-  (encode-url (if (int? k) (str k) (name k))))
+  (encode-url (if (instance? Long k) (str k) (name k))))
 
 (defn key-by-path
   ([data] (key-by-path [] data))
@@ -40,10 +40,10 @@
   (str "[" k "]"))
 
 (defn encode-pair [[[k & ks] value]]
-  (str (apply str k (map wrap-key ks)) "=" value))
+  (when k
+    (str (apply str k (map wrap-key ks)) "=" value)))
 
 (defn encode [data]
   (->> (key-by-path data)
        (map encode-pair)
        (str/join "&")))
-

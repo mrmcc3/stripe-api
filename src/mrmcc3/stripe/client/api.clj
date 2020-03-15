@@ -3,27 +3,19 @@
     [clojure.edn :as edn]
     [clojure.java.io :as io]
     [clojure.string :as str]
-    [mrmcc3.stripe.client.http :as http]))
+    [mrmcc3.stripe.client.http.api :as http]
+    [mrmcc3.stripe.client.util.path :as path]))
 
-;; utils for path parameter replacement
+(defn load-http-client [ns]
+  (try
+    (require ns)
+    ((ns-resolve ns 'client))
+    (catch Exception _ false)))
 
-(defn params->smap [params]
-  (reduce-kv
-    #(assoc %1
-       (str "{" (name %2) "}")
-       (str %3))
-    {}
-    params))
-
-(defn replace-in-path [path params]
-  (->> (str/split path #"/")
-       (replace (params->smap params))
-       (str/join "/")))
-
-(defn gen-url [base path params]
-  (str base (replace-in-path (subs path 1) params)))
-
-;; try loading the stripe api spec from the classpath
+(defn default-http-client []
+  (or (load-http-client 'mrmcc3.stripe.client.http.jetty)
+      (load-http-client 'mrmcc3.stripe.client.http.java11)
+      (load-http-client 'mrmcc3.stripe.client.http.url-connection)))
 
 (defn load-spec []
   (let [path "mrmcc3/stripe/api/spec.edn"]
@@ -34,12 +26,10 @@
             (ex-info {:ex ex})
             throw)))))
 
-;; public api
-
-(defn client [{:keys [api-key]}]
-  {:http-client (http/client)
-   :spec        (load-spec)
-   :api-key     api-key})
+(defn client [{:keys [http-client api-key]}]
+  {:spec        (load-spec)
+   :api-key     api-key
+   :http-client (or http-client (default-http-client))})
 
 (defn info [client]
   (select-keys (:spec client) [:version :sha]))
@@ -55,19 +45,14 @@
                 op query-params path-params
                 timeout form-data]}
         (merge client request)
-
         {:keys [path method]}
-        (get-in spec [:ops op])
-
-        http-request
-        {:url          (gen-url (:url spec) path path-params)
-         :method       method
-         :headers      {"Authorization"  (str "Bearer " api-key)
-                        "Stripe-Version" (:version spec)}
-         :query-params query-params
-         :timeout      timeout
-         :form-data    form-data}]
-    (-> http-client
-        (http/send! http-request)
-        http/response-content)))
-
+        (get-in spec [:ops op])]
+    (http/send!
+      http-client
+      {:url          (path/gen-url (:url spec) path path-params)
+       :method       (str/upper-case method)
+       :headers      {"Authorization"  (str "Bearer " api-key)
+                      "Stripe-Version" (:version spec)}
+       :query-params query-params
+       :timeout      timeout
+       :form-data    form-data})))

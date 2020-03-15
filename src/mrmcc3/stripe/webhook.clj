@@ -1,4 +1,4 @@
-(ns mrmcc3.stripe.client.webhook
+(ns mrmcc3.stripe.webhook
   (:require
     [clojure.data.json :as json]
     [clojure.string :as str])
