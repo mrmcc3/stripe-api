@@ -41,17 +41,18 @@
   (-> client :spec :ops op))
 
 (defn invoke [client request]
-  (let [{:keys [http-client spec api-key
-                op query-params path-params
-                timeout body]}
+  (let [{:keys [http-client spec api-key op params timeout]}
         (merge client request)
-        {:keys [path method]}
-        (get-in spec [:ops op])]
+        {:keys [path method] :as op}
+        (get-in spec [:ops op])
+        path-params  (select-keys params (:path-params op))
+        query-params (select-keys params (:query-params op))
+        body-params  (select-keys params (:body-params op))]
     (http/send!
       http-client
       {:url     (path/url (:url spec) path path-params query-params)
        :method  (str/upper-case method)
-       :body    body
+       :body    body-params
        :timeout timeout
        :headers {"Authorization"  (str "Bearer " api-key)
                  "Stripe-Version" (:version spec)}})))

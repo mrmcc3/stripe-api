@@ -59,7 +59,7 @@ For now see `dev/user.clj`
 
 * [ ] testing
 * [ ] file uploads are not supported
-* [ ] automatic path-params, query-params and form-data
+* [x] ~~automatic path-params, query-params and body-params~~
 * [x] ~~webhook validation~~
 * [ ] public client api docs and docstrings
 * [ ] better doc for operations
