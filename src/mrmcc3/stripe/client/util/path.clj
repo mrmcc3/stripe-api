@@ -1,6 +1,7 @@
 (ns mrmcc3.stripe.client.util.path
   (:require
-    [clojure.string :as str]))
+    [clojure.string :as str]
+    [mrmcc3.stripe.client.util.form-encoder :as form]))
 
 (defn params->smap [params]
   (reduce-kv
@@ -15,6 +16,8 @@
        (replace (params->smap params))
        (str/join "/")))
 
-(defn gen-url [base path params]
-  (str base (replace-in-path (subs path 1) params)))
-
+(defn url [base-url path path-params query-params]
+  (let [qs (form/encode query-params)]
+    (str base-url
+         (replace-in-path (subs path 1) path-params)
+         (when (seq qs) (str "?" qs)))))

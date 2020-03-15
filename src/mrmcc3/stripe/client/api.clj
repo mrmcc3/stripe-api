@@ -43,16 +43,15 @@
 (defn invoke [client request]
   (let [{:keys [http-client spec api-key
                 op query-params path-params
-                timeout form-data]}
+                timeout body]}
         (merge client request)
         {:keys [path method]}
         (get-in spec [:ops op])]
     (http/send!
       http-client
-      {:url          (path/gen-url (:url spec) path path-params)
-       :method       (str/upper-case method)
-       :headers      {"Authorization"  (str "Bearer " api-key)
-                      "Stripe-Version" (:version spec)}
-       :query-params query-params
-       :timeout      timeout
-       :form-data    form-data})))
+      {:url     (path/url (:url spec) path path-params query-params)
+       :method  (str/upper-case method)
+       :body    body
+       :timeout timeout
+       :headers {"Authorization"  (str "Bearer " api-key)
+                 "Stripe-Version" (:version spec)}})))

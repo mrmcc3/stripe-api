@@ -15,23 +15,19 @@
 (defn with-headers [req headers]
   (reduce-kv #(.header %1 (name %2) (str %3)) req headers))
 
-(defn with-params [req params]
-  (reduce-kv #(.param %1 (name %2) (str %3)) req params))
-
-(defn with-content [req form-data]
+(defn with-content [req body]
   (cond-> req
-    form-data
+    body
     (.content
-      (StringContentProvider. (form/encode form-data))
+      (StringContentProvider. (form/encode body))
       "application/x-www-form-urlencoded")))
 
 (defn request
-  [client {:keys [url query-params method headers form-data timeout]}]
+  [client {:keys [url method headers body timeout]}]
   (-> (.newRequest client url)
       (.method method)
-      (with-params query-params)
       (with-headers headers)
-      (with-content form-data)
+      (with-content body)
       (.timeout (or timeout 10000) TimeUnit/MILLISECONDS)))
 
 (extend-type HttpClient

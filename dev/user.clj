@@ -14,7 +14,8 @@
   (stripe/doc client :GetCustomers)
 
   (stripe/invoke client {:op           :GetCustomers
-                         :query-params {:limit 1}})
+                         :query-params {:limit   1
+                                        :created {:gt 0}}})
 
   @(def cus (get-in *1 ["data" 0 "id"]))
 
@@ -22,7 +23,7 @@
 
   (stripe/invoke client {:op          :PostCustomersCustomer
                          :path-params {:customer cus}
-                         :form-data   {:metadata {:order_id "6732"}}})
+                         :body        {:metadata {:order_id "6732"}}})
 
   (get *1 "metadata")
 
