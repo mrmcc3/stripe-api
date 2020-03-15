@@ -4,8 +4,7 @@
 
 (comment
 
-  (def client
-    (stripe/client {:api-key (System/getenv "STRIPE_API_KEY")}))
+  (def client (stripe/client {}))
 
   (stripe/info client)
 

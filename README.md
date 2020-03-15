@@ -58,12 +58,13 @@ For now see `dev/user.clj`
 ### TODO/IDEAS
 
 * [ ] testing
-* [ ] file uploads are not supported
+* [ ] support file uploads
 * [x] ~~automatic path-params, query-params and body-params~~
 * [x] ~~webhook validation~~
-* [ ] public client api docs and docstrings
+* [x] ~~public client api docstrings~~
+* [ ] improve usage docs in readme
 * [ ] better doc for operations
-* [ ] exploration via datafy/nav
+* [ ] exploration via datafy/nav/REBL
 * [ ] auto pagination?
 * [ ] dev time request validation via clojure.spec?
 * [x] ~~configurable http-client? Java 11 HttpClient?~~
