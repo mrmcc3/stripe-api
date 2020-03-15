@@ -26,25 +26,56 @@
             (ex-info {:ex ex})
             throw)))))
 
-(defn client [{:keys [http-client api-key]}]
-  {:spec        (load-spec)
-   :api-key     api-key
-   :http-client (or http-client (default-http-client))})
+;; public api
 
-(defn info [client]
+(defn client
+  "Returns a stripe api client map. With the following keys
+
+  :http-client - implements http/Client, used to make api requests
+  :spec - a stripe api spec
+  :api-key - a stripe api key
+  :timeout - timeout in milliseconds for requests
+
+  A map can be provided to bypass the following default behaviour
+  :http-client - will try to load a suitable default implementation
+  :spec - will try to load from the default classpath location
+  :api-key - will use the STRIPE_API_KEY environment variable
+  :timeout - 10 seconds"
+  [{:keys [http-client spec api-key timeout]}]
+  {:http-client (or http-client (default-http-client))
+   :spec        (or spec (load-spec))
+   :api-key     (or api-key (System/getenv "STRIPE_API_KEY"))
+   :timeout     (or timeout 10000)})
+
+(defn info
+  "Returns a map with the following keys
+  :version - the stripe api version in use
+  :sha - the git commit sha that was used to generate the api spec"
+  [client]
   (select-keys (:spec client) [:version :sha]))
 
-(defn ops [client]
+(defn ops
+  "A sorted list of all available operation (op) keywords"
+  [client]
   (-> client :spec :ops keys sort))
 
-(defn doc [client op]
+(defn doc
+  "Print the documentation for a given operation (op) keyword. WIP"
+  [client op]
   (-> client :spec :ops op))
 
-(defn invoke [client request]
+(defn invoke
+  "Invoke a client operation. `client` is a stripe api client map.
+  `request` is a map containing :op the api operation to invoke.
+
+  Other optional keys in the request map include:
+  :params - a map of additional parameters. see doc for the given :op
+  :api-key - stripe api key. overrides the client api-key
+  :timeout - request timeout in milliseconds. overrides the client timeout"
+  [client request]
   (let [{:keys [http-client spec api-key op params timeout]}
         (merge client request)
-        {:keys [path method] :as op}
-        (get-in spec [:ops op])
+        {:keys [path method] :as op} (get-in spec [:ops op])
         path-params  (select-keys params (:path-params op))
         query-params (select-keys params (:query-params op))
         body-params  (select-keys params (:body-params op))]

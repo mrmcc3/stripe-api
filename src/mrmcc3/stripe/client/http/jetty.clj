@@ -28,7 +28,7 @@
       (.method method)
       (with-headers headers)
       (with-content body)
-      (.timeout (or timeout 10000) TimeUnit/MILLISECONDS)))
+      (.timeout timeout TimeUnit/MILLISECONDS)))
 
 (extend-type HttpClient
   http/Client

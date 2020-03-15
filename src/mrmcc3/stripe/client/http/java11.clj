@@ -32,7 +32,7 @@
       (HttpRequest/newBuilder)
       (with-headers headers)
       (with-content method body)
-      (.timeout (Duration/ofMillis (or timeout 10000)))
+      (.timeout (Duration/ofMillis timeout))
       (.build)))
 
 (extend-type HttpClient
