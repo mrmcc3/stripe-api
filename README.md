@@ -57,18 +57,26 @@ For now see `dev/user.clj`
 
 ### TODO/IDEAS
 
-* [ ] testing
+Roughly ordered by priority
+
+* [ ] better doc for operations. include required top level params
+* [ ] simulation/integration style tests against stripe dev api
 * [ ] support file uploads
-* [x] ~~automatic path-params, query-params and body-params~~
-* [x] ~~webhook validation~~
-* [x] ~~public client api docstrings~~
-* [ ] improve usage docs in readme
-* [ ] better doc for operations
+* [ ] publish generated api specs and document usage
 * [ ] exploration via datafy/nav/REBL
-* [ ] auto pagination?
-* [ ] dev time request validation via clojure.spec?
-* [x] ~~configurable http-client? Java 11 HttpClient?~~
-    * [ ] fallback to URLConnection on Java 8
+* [ ] auto pagination? response handling?
+* [ ] client only tests (not api). client.util and webhook validation
+* [ ] improve usage docs in readme
+* [ ] default http client impl with fallback to URLConnection on Java 8
+* [ ] generate clojure specs and leverage them?
+      dev time request validation? example request generation?
 * [ ] cli - native image?
 * [ ] cljs?
+
+Implemented
+
+* [x] automatic path, query and body param selection based off api spec
+* [x] webhook validation
+* [x] configurable http-client with default impl for jetty, java 11 http client
+* [x] public client api docstrings
 
