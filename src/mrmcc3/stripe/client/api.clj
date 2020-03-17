@@ -2,8 +2,10 @@
   (:require
     [clojure.edn :as edn]
     [clojure.java.io :as io]
+    [clojure.pprint :as pprint]
+    [clojure.string :as str]
     [mrmcc3.stripe.client.http.api :as http]
-    [mrmcc3.stripe.client.util.path :as path]
+    [mrmcc3.stripe.client.util.params :as params]
     [mrmcc3.stripe.client.util.response :as resp]))
 
 (defn load-http-client [ns]
@@ -61,8 +63,22 @@
 
 (defn doc
   "Print the documentation for a given operation (op) keyword. WIP"
-  [client op]
-  (-> client :spec :ops op))
+  [client op & args]
+  (let [{:keys [method path desc params]}
+        (-> client :spec :ops op)]
+    (if desc
+      (println
+        (str/join
+          "\n"
+          (cond->
+            ["--------------------------------------"
+             (format "%s -> %s %s" op method path) ""
+             desc ""]
+            params
+            (into ["--------------------------------------"
+                   :params ""
+                   (params/shape-str {:type :map :keys params})]))))
+      (println "No docs for" op))))
 
 (defn invoke
   "Invoke a client operation. `client` is a stripe api client map.
@@ -78,12 +94,13 @@
         {:keys [path method] :as op-map}
         (get-in spec [:ops op])
         {:keys [in-path in-query in-body]}
-        (path/group-params (:params op-map))
+        (params/group-params (:params op-map))
         path-params  (select-keys params in-path)
         query-params (select-keys params in-query)
         body-params  (select-keys params in-body)
-        request-map  {:url     (path/url (:url spec) path
-                                         path-params query-params)
+        request-map  {:url     (params/gen-url
+                                 (:url spec) path
+                                 path-params query-params)
                       :method  method
                       :body    body-params
                       :timeout timeout
