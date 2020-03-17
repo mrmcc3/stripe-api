@@ -17,6 +17,7 @@
        (replace (params->smap params))
        (str/join "/")))
 
+;; TODO make sure no {var} left in path
 (defn gen-url [base-url path path-params query-params]
   (let [qs (form/encode query-params)]
     (str base-url

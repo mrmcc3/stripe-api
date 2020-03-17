@@ -9,7 +9,7 @@
   (URLEncoder/encode s "UTF-8"))
 
 (defn encode-key [k]
-  (encode-url (if (instance? Long k) (str k) (name k))))
+  (encode-url (if (int? k) (str k) (name k))))
 
 (defn key-by-path
   ([data] (key-by-path [] data))
