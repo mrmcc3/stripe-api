@@ -16,7 +16,7 @@
                          :params {:limit   1
                                   :created {:gt 0}}})
 
-  @(def cus (get-in *1 ["data" 0 "id"]))
+  @(def cus (get-in *1 [:data 0 :id]))
 
   (stripe/doc client :PostCustomersCustomer)
 
@@ -24,6 +24,6 @@
                          :params {:customer cus
                                   :metadata {:order_id "6732"}}})
 
-  (get *1 "metadata")
+  (get *1 :metadata)
 
   )

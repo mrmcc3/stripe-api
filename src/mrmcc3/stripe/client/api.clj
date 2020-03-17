@@ -2,9 +2,9 @@
   (:require
     [clojure.edn :as edn]
     [clojure.java.io :as io]
-    [clojure.string :as str]
     [mrmcc3.stripe.client.http.api :as http]
-    [mrmcc3.stripe.client.util.path :as path]))
+    [mrmcc3.stripe.client.util.path :as path]
+    [mrmcc3.stripe.client.util.response :as resp]))
 
 (defn load-http-client [ns]
   (try
@@ -75,15 +75,19 @@
   [client request]
   (let [{:keys [http-client spec api-key op params timeout]}
         (merge client request)
-        {:keys [path method] :as op} (get-in spec [:ops op])
-        path-params  (select-keys params (:path-params op))
-        query-params (select-keys params (:query-params op))
-        body-params  (select-keys params (:body-params op))]
-    (http/send!
-      http-client
-      {:url     (path/url (:url spec) path path-params query-params)
-       :method  (str/upper-case method)
-       :body    body-params
-       :timeout timeout
-       :headers {"Authorization"  (str "Bearer " api-key)
-                 "Stripe-Version" (:version spec)}})))
+        {:keys [path method] :as op-map}
+        (get-in spec [:ops op])
+        {:keys [in-path in-query in-body]}
+        (path/group-params (:params op-map))
+        path-params  (select-keys params in-path)
+        query-params (select-keys params in-query)
+        body-params  (select-keys params in-body)
+        request-map  {:url     (path/url (:url spec) path
+                                         path-params query-params)
+                      :method  method
+                      :body    body-params
+                      :timeout timeout
+                      :headers {"Authorization"  (str "Bearer " api-key)
+                                "Stripe-Version" (:version spec)}}]
+    (-> (http/send! http-client request-map)
+        resp/decode)))

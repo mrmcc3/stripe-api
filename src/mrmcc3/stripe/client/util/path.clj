@@ -21,3 +21,10 @@
     (str base-url
          (replace-in-path (subs path 1) path-params)
          (when (seq qs) (str "?" qs)))))
+
+(defn group-param [m p {:keys [in]}]
+  (let [k (case in :path :in-path :query :in-query :in-body)]
+    (update m k conj p)))
+
+(defn group-params [params]
+  (reduce-kv group-param {} params))

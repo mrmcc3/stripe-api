@@ -1,6 +1,5 @@
 (ns mrmcc3.stripe.client.http.java11
   (:require
-    [clojure.data.json :as json]
     [mrmcc3.stripe.client.util.form-encoder :as form]
     [mrmcc3.stripe.client.http.api :as http])
   (:import
@@ -38,10 +37,9 @@
 (extend-type HttpClient
   http/Client
   (send! [client request-map]
-    (-> (.send
-          client
-          (request request-map)
-          (HttpResponse$BodyHandlers/ofString))
-        (.body)
-        (json/read-str))))
+    (.body
+      (.send
+        client
+        (request request-map)
+        (HttpResponse$BodyHandlers/ofString)))))
 

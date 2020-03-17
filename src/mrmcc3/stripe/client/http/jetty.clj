@@ -1,6 +1,5 @@
 (ns mrmcc3.stripe.client.http.jetty
   (:require
-    [clojure.data.json :as json]
     [mrmcc3.stripe.client.util.form-encoder :as form]
     [mrmcc3.stripe.client.http.api :as http])
   (:import
@@ -35,6 +34,5 @@
   (send! [client request-map]
     (-> (request client request-map)
         (.send)
-        (.getContentAsString)
-        (json/read-str))))
+        (.getContentAsString))))
 
