@@ -2,12 +2,11 @@
   (:require
     [clojure.edn :as edn]
     [clojure.java.io :as io]
-    [clojure.pprint :as pprint]
-    [clojure.string :as str]
     [mrmcc3.stripe.client.http.api :as http]
     [mrmcc3.stripe.client.util.params :as params]
     [mrmcc3.stripe.client.util.response :as resp]
-    [mrmcc3.stripe.client.util.form-encoder :as form]))
+    [mrmcc3.stripe.client.util.form-encoder :as form])
+  (:import (java.util UUID)))
 
 (defn load-http-client [ns]
   (try
@@ -101,9 +100,12 @@
   Other optional keys in the request map include:
   :params - a map of additional parameters. see doc for the given :op
   :api-key - stripe api key. overrides the client api-key
-  :timeout - request timeout in milliseconds. overrides the client timeout"
+  :timeout - request timeout in milliseconds. overrides the client timeout
+  :stripe-account - the account id to make request as connected account
+  :idempotency-key - provide a key for idempotent requests"
   [client request]
-  (let [{:keys [http-client spec api-key op params timeout]}
+  (let [{:keys [http-client spec api-key op params timeout
+                stripe-account idempotency-key]}
         (merge client request)
         {:keys [path method] :as op-map}
         (get-in spec [:ops op])
@@ -115,12 +117,23 @@
         url          (params/gen-url
                        (:url spec) (subs path 1)
                        path-params query-params)
+        i-key        (or idempotency-key
+                         (and (= method "POST")
+                              (str (UUID/randomUUID))))
+        headers      (cond->
+                       {"Accept"         "application/json"
+                        "Accept-Charset" "UTF-8"
+                        "Content-Type"   "application/x-www-form-urlencoded"
+                        "Authorization"  (str "Bearer " api-key)
+                        "Stripe-Version" (:version spec)}
+                       stripe-account
+                       (assoc "Stripe-Account" stripe-account)
+                       i-key
+                       (assoc "Idempotency-Key" i-key))
         request-map  {:url     url
                       :method  method
+                      :headers headers
                       :body    (form/encode body-params)
-                      :timeout timeout
-                      :headers {"Authorization"  (str "Bearer " api-key)
-                                "Stripe-Version" (:version spec)
-                                "Content-Type"   "application/x-www-form-urlencoded"}}]
+                      :timeout timeout}]
     (-> (http/send! http-client request-map)
         resp/decode)))

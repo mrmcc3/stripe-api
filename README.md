@@ -63,7 +63,6 @@ Roughly ordered by priority
 * [ ] exploration via datafy/nav/REBL
 * [ ] show output/response shape in operation doc
 * [ ] auto pagination? response handling?
-* [ ] default http client impl with fallback to URLConnection on Java 8
 * [ ] support file uploads
 * [ ] publish generated api specs and document usage
 * [ ] improve usage docs in readme
@@ -78,6 +77,6 @@ Implemented
 * [x] better doc for operations. include required top level params
 * [x] automatic path, query and body param selection based off api spec
 * [x] webhook validation
-* [x] configurable http-client with default impl for jetty, java 11 http client
+* [x] configurable http-client with default impl for Jetty, Java 11 http client, Java 8 URLConnection
 * [x] public client api docstrings
 
