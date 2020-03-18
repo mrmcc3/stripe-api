@@ -4,25 +4,24 @@
     [clojure.string :as str]
     [mrmcc3.stripe.client.util.form-encoder :as form]))
 
-(defn params->smap [params]
-  (reduce-kv
-    #(assoc %1
-       (str "{" (name %2) "}")
-       (str %3))
-    {}
-    params))
+;; url generation - path params & query params
+
+(defn wrap-key [m k v]
+  (assoc m (str "{" (name k) "}") (str v)))
 
 (defn replace-in-path [path params]
-  (->> (str/split path #"/")
-       (replace (params->smap params))
-       (str/join "/")))
+  (let [smap (reduce-kv wrap-key {} params)]
+    (->> (str/split path #"/")
+         (replace smap)
+         (map form/encode-url)
+         (str/join "/"))))
 
-;; TODO make sure no {var} left in path
-(defn gen-url [base-url path path-params query-params]
-  (let [qs (form/encode query-params)]
-    (str base-url
-         (replace-in-path (subs path 1) path-params)
-         (when (seq qs) (str "?" qs)))))
+(defn gen-url [base path-tpl path-params query-params]
+  (let [qs   (form/encode query-params)
+        path (replace-in-path path-tpl path-params)]
+    (str base path (and qs "?") qs)))
+
+;; group params from api spec by target (path, query or body)
 
 (defn group-param [m p {:keys [in]}]
   (let [k (case in :path :in-path :query :in-query :in-body)]
@@ -30,6 +29,8 @@
 
 (defn group-params [params]
   (reduce-kv group-param {} params))
+
+;; shape params from api spec for doc purposes
 
 (defn shape [{:keys [type keys of opts]}]
   (case type

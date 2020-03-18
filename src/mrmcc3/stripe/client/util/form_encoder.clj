@@ -44,6 +44,7 @@
     (str (apply str k (map wrap-key ks)) "=" value)))
 
 (defn encode [data]
-  (->> (key-by-path data)
-       (map encode-pair)
-       (str/join "&")))
+  (when (seq data)
+    (->> (key-by-path data)
+         (map encode-pair)
+         (str/join "&"))))

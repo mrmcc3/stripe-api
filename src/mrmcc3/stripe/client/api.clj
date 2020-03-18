@@ -6,7 +6,8 @@
     [clojure.string :as str]
     [mrmcc3.stripe.client.http.api :as http]
     [mrmcc3.stripe.client.util.params :as params]
-    [mrmcc3.stripe.client.util.response :as resp]))
+    [mrmcc3.stripe.client.util.response :as resp]
+    [mrmcc3.stripe.client.util.form-encoder :as form]))
 
 (defn load-http-client [ns]
   (try
@@ -98,13 +99,15 @@
         path-params  (select-keys params in-path)
         query-params (select-keys params in-query)
         body-params  (select-keys params in-body)
-        request-map  {:url     (params/gen-url
-                                 (:url spec) path
-                                 path-params query-params)
+        url          (params/gen-url
+                       (:url spec) (subs path 1)
+                       path-params query-params)
+        request-map  {:url     url
                       :method  method
-                      :body    body-params
+                      :body    (form/encode body-params)
                       :timeout timeout
                       :headers {"Authorization"  (str "Bearer " api-key)
-                                "Stripe-Version" (:version spec)}}]
+                                "Stripe-Version" (:version spec)
+                                "Content-Type"   "application/x-www-form-urlencoded"}}]
     (-> (http/send! http-client request-map)
         resp/decode)))

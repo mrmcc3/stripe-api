@@ -1,11 +1,9 @@
 (ns mrmcc3.stripe.client.http.jetty
-  (:require
-    [mrmcc3.stripe.client.util.form-encoder :as form]
-    [mrmcc3.stripe.client.http.api :as http])
+  (:require [mrmcc3.stripe.client.http.api :as http])
   (:import
     (org.eclipse.jetty.client HttpClient HttpRequest HttpContentResponse)
-    (org.eclipse.jetty.util.ssl SslContextFactory)
     (org.eclipse.jetty.client.util StringContentProvider)
+    (org.eclipse.jetty.util.ssl SslContextFactory)
     (java.util.concurrent TimeUnit)))
 
 (defn client []
@@ -14,12 +12,8 @@
 (defn with-headers [req headers]
   (reduce-kv #(.header %1 (name %2) (str %3)) req headers))
 
-(defn with-content [req body]
-  (cond-> req
-    body
-    (.content
-      (StringContentProvider. (form/encode body))
-      "application/x-www-form-urlencoded")))
+(defn with-content [req s]
+  (cond-> req s (.content (StringContentProvider. s))))
 
 (defn request
   [client {:keys [url method headers body timeout]}]
