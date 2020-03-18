@@ -42,3 +42,8 @@
 
 (defn shape-str [params]
   (with-out-str (pprint/pprint (shape params))))
+
+(defn required [params]
+  (->> params
+       (reduce-kv #(cond-> %1 (:req? %3) (conj %2)) #{})
+       seq))

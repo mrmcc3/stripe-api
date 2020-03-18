@@ -62,24 +62,37 @@
   [client]
   (-> client :spec :ops keys sort))
 
-(defn doc
-  "Print the documentation for a given operation (op) keyword. WIP"
-  [client op & args]
-  (let [{:keys [method path desc params]}
+(defn doc-str [client op param]
+  (let [{:keys [method path params] :as op-map}
         (-> client :spec :ops op)]
-    (if desc
-      (println
-        (str/join
-          "\n"
-          (cond->
-            ["--------------------------------------"
-             (format "%s -> %s %s" op method path) ""
-             desc ""]
-            params
-            (into ["--------------------------------------"
-                   :params ""
-                   (params/shape-str {:type :map :keys params})]))))
-      (println "No docs for" op))))
+    (when path
+      (str "--------------------------------------\n"
+           (format "%s -> %s %s" op method path) "\n\n"
+           (:desc op-map "No docs.") "\n\n"
+
+           (if-let [{:keys [req? desc] :as pm} (get params param)]
+             (str "--------------------------------------\n"
+                  :params " -> " param
+                  (when req? " [REQUIRED]") "\n\n"
+                  desc (when desc "\n\n")
+                  (params/shape-str pm))
+             (if param
+               (str "--------------------------------------\n"
+                    :params " -> " param "\n\n"
+                    "Not Found!\n")
+               (str "--------------------------------------\n"
+                    :params "\n\n"
+                    (params/shape-str
+                      {:type :map :keys params})
+                    (when-let [req (params/required params)]
+                      (str "\nREQUIRED\n\n" (pr-str req) "\n")))))))))
+
+(defn doc
+  "Print the documentation for a given operation (op) keyword.
+  An optional third argument (keyword) can be used to include
+  additional info about a specific parameter."
+  [client op & [param]]
+  (println (doc-str client op param)))
 
 (defn invoke
   "Invoke a client operation. `client` is a stripe api client map.
